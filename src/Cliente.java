@@ -1,12 +1,12 @@
 public class Cliente {
     private String nome;
     private int telemovel;
-    private int contribuinte;
+    private int nif;
     private double gastoTotal;
     private int numeroDeCompras;
 
-    public Cliente(int contribuinte, String nome, int telemovel) {
-        this.contribuinte = contribuinte;
+    public Cliente(int nif, String nome, int telemovel) {
+        this.nif = nif;
         this.nome = nome;
         this.telemovel = telemovel;
         this.gastoTotal = 0.0;
@@ -21,7 +21,7 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "contribuinte=" + contribuinte +
+                "nif=" + nif +
                 ", nome='" + nome + '\'' +
                 ", telemovel=" + telemovel +
                 ", gastoTotal=" + gastoTotal +

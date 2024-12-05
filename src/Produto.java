@@ -1,20 +1,18 @@
-public class Produtos {
-    private static int ultimo;
-    private int id;
+import java.time.LocalDateTime;
+
+public class Produto {
     private String nome;
     private int stock;
     private double preco;
+    private String categoria;
+    private LocalDateTime validade;
 
-    public Produtos(String nome, double preco, int stock) {
-        ultimo++;
-        id = ultimo;
+    public Produto(String nome, String categoria, double preco, int stock, LocalDateTime validade) {
+        this.categoria = categoria;
         this.nome = nome;
         this.preco = preco;
         this.stock = stock;
-    }
-
-    public int getId() {
-        return id;
+        this.validade = validade;
     }
 
     public String getNome() {
@@ -41,25 +39,39 @@ public class Produtos {
         this.stock = stock;
     }
 
-    public static int getUltimo() {
-        return ultimo;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public static void setUltimo(int ultimo) {
-        Produtos.ultimo = ultimo;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public LocalDateTime getValidade() {
+        return validade;
+    }
+
+    public void setValidade(LocalDateTime validade) {
+        this.validade = validade;
     }
 
     @Override
     public String toString() {
-        return "Produtos{" +
-                "id=" + id +
+        return "Produto{" +
+                "categoria='" + categoria + '\'' +
                 ", nome='" + nome + '\'' +
                 ", stock=" + stock +
                 ", preco=" + preco +
+                ", validade=" + validade +
                 '}';
     }
 
-    public void adicionarStock(int quantidade){
-        this.stock += quantidade;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null && this.getClass() == obj.getClass()){
+            Produto p = (Produto) obj;
+            return(this.nome.equals(p.nome) && this.stock == p.stock && this.preco == p.preco);
+        }
+        return false;
     }
 }
