@@ -7,6 +7,4 @@ public class ProdutoPadaria extends Produto {
         super(nome, "Padaria", preco, stock, validade);
     }
 
-
-
 }

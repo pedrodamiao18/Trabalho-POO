@@ -6,6 +6,8 @@ public class Produto {
     private double preco;
     private String categoria;
     private LocalDateTime validade;
+    private int quantidadeVendida;
+    private double valorFaturado;
 
     public Produto(String nome, String categoria, double preco, int stock, LocalDateTime validade) {
         this.categoria = categoria;
@@ -13,6 +15,8 @@ public class Produto {
         this.preco = preco;
         this.stock = stock;
         this.validade = validade;
+        quantidadeVendida = 0;
+        valorFaturado = 0.0;
     }
 
     public String getNome() {
@@ -53,6 +57,14 @@ public class Produto {
 
     public void setValidade(LocalDateTime validade) {
         this.validade = validade;
+    }
+
+    public int getQuantidadeVendida() {
+        return quantidadeVendida;
+    }
+
+    public double getValorFaturado() {
+        return valorFaturado;
     }
 
     @Override

@@ -1,9 +1,9 @@
 import java.time.LocalDateTime;
 
-public class ProdutoLacteos extends Produto {
+public class ProdutoLacteo extends Produto {
     private double porcentagemGordura;
 
-    public ProdutoLacteos(String nome, double preco, int stock, double porcentagemGordura, LocalDateTime validade) {
+    public ProdutoLacteo(String nome, double preco, int stock, double porcentagemGordura, LocalDateTime validade) {
         super(nome, "Lácteo", preco, stock, validade);
         this.porcentagemGordura = porcentagemGordura;
     }
