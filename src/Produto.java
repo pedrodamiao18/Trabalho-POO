@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Produto {
+public class Produto implements Serializable {
     private String nome;
     private int stock;
     private double preco;

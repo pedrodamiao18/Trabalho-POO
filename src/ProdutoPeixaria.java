@@ -1,2 +1,4 @@
-public class ProdutoPeixaria {
+public class ProdutoPeixaria extends Produto{
+    private double peso;
+
 }

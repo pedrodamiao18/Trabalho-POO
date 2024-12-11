@@ -1,2 +1,2 @@
-public class ProdutoEnlatado {
+public class ProdutoEnlatado extends Produto{
 }

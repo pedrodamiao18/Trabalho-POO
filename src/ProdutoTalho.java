@@ -1,2 +1,4 @@
-public class ProdutoTalho {
+public class ProdutoTalho extends Produto{
+    private double peso;
+
 }
