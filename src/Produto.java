@@ -2,6 +2,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Produto implements Serializable {
+    private int cod;
+    private static int ultimo = 0;
     private String nome;
     private int stock;
     private double preco;
@@ -9,8 +11,12 @@ public class Produto implements Serializable {
     private LocalDateTime validade;
     private int quantidadeVendida;
     private double valorFaturado;
+    private String unidademedida;
+    private double quantidademedida;
 
     public Produto(String nome, String categoria, double preco, int stock, LocalDateTime validade) {
+        ultimo++;
+        cod = ultimo;
         this.categoria = categoria;
         this.nome = nome;
         this.preco = preco;
