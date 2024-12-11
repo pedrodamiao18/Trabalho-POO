@@ -38,6 +38,7 @@ public class GerirProdutos {
             escolha = menu();
             switch (escolha){
                 case 1:
+                    FuncProdutos.adicionarProduto(produtos);
                     break;
                 case 2:
                     break;

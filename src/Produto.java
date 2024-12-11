@@ -1,5 +1,5 @@
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Produto implements Serializable {
     private int cod;
@@ -8,13 +8,13 @@ public class Produto implements Serializable {
     private int stock;
     private double preco;
     private String categoria;
-    private LocalDateTime validade;
+    private LocalDate validade;
     private int quantidadeVendida;
     private double valorFaturado;
     private String unidademedida;
     private double quantidademedida;
 
-    public Produto(String nome, String categoria, double preco, int stock, LocalDateTime validade) {
+    public Produto(String nome, String categoria, double preco, int stock, LocalDate validade) {
         ultimo++;
         cod = ultimo;
         this.categoria = categoria;
@@ -58,11 +58,11 @@ public class Produto implements Serializable {
         this.categoria = categoria;
     }
 
-    public LocalDateTime getValidade() {
+    public LocalDate getValidade() {
         return validade;
     }
 
-    public void setValidade(LocalDateTime validade) {
+    public void setValidade(LocalDate validade) {
         this.validade = validade;
     }
 

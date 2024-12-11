@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../pratica/Aula2/src/myinputs/Aula1.iml" filepath="$PROJECT_DIR$/../../pratica/Aula2/src/myinputs/Aula1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Loja.iml" filepath="$PROJECT_DIR$/Loja.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../pratica/Aula2/src/myinputs/myinputs.iml" filepath="$PROJECT_DIR$/../../pratica/Aula2/src/myinputs/myinputs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ler/src/myinputs/myinputs.iml" filepath="$PROJECT_DIR$/../ler/src/myinputs/myinputs.iml" />
     </modules>
   </component>
 </project>
