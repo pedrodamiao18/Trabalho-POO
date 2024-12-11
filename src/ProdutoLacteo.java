@@ -1,10 +1,11 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+//queijos, leite, yogurte
 public class ProdutoLacteo extends Produto {
     private double porcentagemGordura;
 
-    public ProdutoLacteo(String nome, double preco, int stock, double porcentagemGordura, LocalDateTime validade) {
-        super(nome, "Lácteo", preco, stock, validade);
+    public ProdutoLacteo(String nome, double preco, int stock, double porcentagemGordura, LocalDate validade, String unidadeMedida, double quantidadeMedida) {
+        super(nome, "Lácteo", preco, stock, validade, unidadeMedida, quantidadeMedida);
         this.porcentagemGordura = porcentagemGordura;
     }
 

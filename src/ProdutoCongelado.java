@@ -1,11 +1,11 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 public class ProdutoCongelado extends Produto{
     private double temperaturaRecomendada;
 
-    public ProdutoCongelado(String nome, double preco, int stock, LocalDateTime validade, double temperaturaRecomendada) {
-        super( nome, "Congelado", preco, stock, validade);
+    public ProdutoCongelado(String nome, double preco, int stock, LocalDate validade, double temperaturaRecomendada, double quantidadeMedida) {
+        super( nome, "Congelado", preco, stock, validade, "Kg", quantidadeMedida);
         this.temperaturaRecomendada = temperaturaRecomendada;
     }
 
@@ -17,10 +17,5 @@ public class ProdutoCongelado extends Produto{
         this.temperaturaRecomendada = temperaturaRecomendada;
     }
 
-    @Override
-    public String toString() {
-        return "ProdutoCongelado{" +
-                "temperaturaRecomendada=" + temperaturaRecomendada +
-                "} " + super.toString();
-    }
+
 }

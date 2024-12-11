@@ -1,8 +1,12 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+//arroz, massa, ovos
 public class ProdutoMercearia extends Produto{
 
-    public ProdutoMercearia( String nome, double preco, int stock, LocalDateTime validade) {
-        super(nome, "Mercearia", preco, stock, validade);
+    public ProdutoMercearia( String nome, double preco, int stock, LocalDate validade,String unidadeMedia, double quantidadeMedida) {
+        super(nome, "Mercearia", preco, stock, validade,unidadeMedia , quantidadeMedida);
+
     }
+
+
 }
