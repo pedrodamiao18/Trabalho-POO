@@ -11,10 +11,10 @@ public class Produto implements Serializable {
     private LocalDate validade;
     private int quantidadeVendida;
     private double valorFaturado;
-    private String unidademedida;
-    private double quantidademedida;
+    private String unidadeMedida;
+    private double quantidadeMedida;
 
-    public Produto(String nome, String categoria, double preco, int stock, LocalDate validade) {
+    public Produto(String nome, String categoria, double preco, int stock, LocalDate validade, String unidadeMedida, double quantidadeMediade) {
         ultimo++;
         cod = ultimo;
         this.categoria = categoria;
@@ -24,6 +24,8 @@ public class Produto implements Serializable {
         this.validade = validade;
         quantidadeVendida = 0;
         valorFaturado = 0.0;
+        this.unidadeMedida = unidadeMedida;
+        this.quantidadeMedida = quantidadeMedida;
     }
 
     public String getNome() {
@@ -74,13 +76,17 @@ public class Produto implements Serializable {
         return valorFaturado;
     }
 
+
     @Override
     public String toString() {
         return "Produto{" +
-                "categoria='" + categoria + '\'' +
+                "cod=" + cod +
+                ", categoria='" + categoria + '\'' +
                 ", nome='" + nome + '\'' +
-                ", stock=" + stock +
                 ", preco=" + preco +
+                ", stock=" + stock +
+                ", unidadeMedida='" + unidadeMedida + '\'' +
+                ", quantidadeMedida=" + quantidadeMedida +
                 ", validade=" + validade +
                 '}';
     }
