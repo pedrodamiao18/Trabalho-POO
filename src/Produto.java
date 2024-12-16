@@ -7,14 +7,18 @@ public class Produto implements Serializable {
     private String nome;
     private int stock;
     private double preco;
-    private String categoria;
+    private String categoria; //mercearia, congelados, lacteos, talho, peixaria, frutaria, legumes, padaria, charcutaria, bebidas
     private LocalDate validade;
     private int quantidadeVendida;
     private double valorFaturado;
     private String unidadeMedida;
     private double quantidadeMedida;
+    public static final String[] categoriasPossiveis = {
+            "mercearia", "congelados", "lacteos", "talho", "peixaria",
+            "frutaria", "legumes", "padaria", "charcutaria", "bebidas"
+    };
 
-    public Produto(String nome, String categoria, double preco, int stock, LocalDate validade, String unidadeMedida, double quantidadeMediade) {
+    public Produto(String nome, String categoria, double preco, int stock, LocalDate validade, String unidadeMedida, double quantidadeMedida) {
         ultimo++;
         cod = ultimo;
         this.categoria = categoria;
@@ -80,14 +84,13 @@ public class Produto implements Serializable {
     @Override
     public String toString() {
         return "Produto{" +
-                "cod=" + cod +
-                ", categoria='" + categoria + '\'' +
-                ", nome='" + nome + '\'' +
-                ", preco=" + preco +
-                ", stock=" + stock +
-                ", unidadeMedida='" + unidadeMedida + '\'' +
-                ", quantidadeMedida=" + quantidadeMedida +
-                ", validade=" + validade +
+                "cod = " + cod +
+                ", categoria = '" + categoria + '\'' +
+                ", nome = '" + nome + '\'' +
+                ", preco = " + preco + "€" +
+                ", stock = " + stock +
+                ", peso = " + quantidadeMedida + " " + unidadeMedida +
+                ", validade = " + validade +
                 '}';
     }
 
@@ -95,7 +98,14 @@ public class Produto implements Serializable {
     public boolean equals(Object obj) {
         if (obj != null && this.getClass() == obj.getClass()){
             Produto p = (Produto) obj;
-            return(this.nome.equals(p.nome) && this.stock == p.stock && this.preco == p.preco);
+            return this.cod == p.cod &&
+                   this.nome.equals(p.nome) &&
+                   this.stock == p.stock &&
+                   Double.compare(this.preco, p.preco) == 0 &&
+                   this.categoria.equals(p.categoria) &&
+                   this.validade.equals(p.validade) &&
+                   this.unidadeMedida.equals(p.unidadeMedida) &&
+                   Double.compare(this.quantidadeMedida, p.quantidadeMedida) == 0;
         }
         return false;
     }
