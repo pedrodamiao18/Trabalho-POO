@@ -48,6 +48,7 @@ public class GerirProdutos {
                 case 4:
                     break;
                 case 5:
+                    FuncProdutos.listarProdutosCategoria(produtos);
                     break;
                 case 6:
                     break;

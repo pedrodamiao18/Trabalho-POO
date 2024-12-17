@@ -89,9 +89,9 @@ public class Produto implements Serializable {
                 ", nome = '" + nome + '\'' +
                 ", preco = " + preco + "€" +
                 ", stock = " + stock +
-                ", peso = " + quantidadeMedida + " " + unidadeMedida +
+                ", quantidade = " + quantidadeMedida + " " + unidadeMedida +
                 ", validade = " + validade +
-                '}';
+                '}'+ "\n";
     }
 
     @Override
@@ -101,11 +101,11 @@ public class Produto implements Serializable {
             return this.cod == p.cod &&
                    this.nome.equals(p.nome) &&
                    this.stock == p.stock &&
-                   Double.compare(this.preco, p.preco) == 0 &&
+                   this.preco == p.preco &&
                    this.categoria.equals(p.categoria) &&
                    this.validade.equals(p.validade) &&
                    this.unidadeMedida.equals(p.unidadeMedida) &&
-                   Double.compare(this.quantidadeMedida, p.quantidadeMedida) == 0;
+                   this.quantidadeMedida == p.quantidadeMedida;
         }
         return false;
     }
