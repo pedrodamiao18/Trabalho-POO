@@ -9,7 +9,7 @@ public class GerirProdutos {
         System.out.println("2 - Listar produtos");
         System.out.println("3 - Apagar produto");
         System.out.println("4 - Alterar preço de um produto");
-        System.out.println("5 -  Listar produtos por categoria");
+        System.out.println("5 - Listar produtos por categoria");
         System.out.println("6 – ");
         System.out.println("7 - Sair");
         System.out.println("Qual a sua opção:");
@@ -44,6 +44,7 @@ public class GerirProdutos {
                     System.out.println(produtos);
                     break;
                 case 3:
+                    FuncProdutos.apagarProduto(produtos);
                     break;
                 case 4:
                     break;

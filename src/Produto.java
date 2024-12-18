@@ -30,6 +30,9 @@ public class Produto implements Serializable {
         this.quantidadeMedida = quantidadeMedida;
     }
 
+    public int getCod() {
+        return cod;
+    }
     public String getNome() {
         return nome;
     }
