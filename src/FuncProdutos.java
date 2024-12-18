@@ -165,5 +165,81 @@ public class FuncProdutos {
             System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
         }
     }
+    public static void alterarPrecoProduto(ArrayList<Produto> produtos) {
+        // Solicita a categoria do produto
+        System.out.println("Insira a categoria do produto cujo preço deseja alterar:");
+        for (String categoria : Produto.categoriasPossiveis) {
+            System.out.print(categoria + ", ");
+        }
+        System.out.println();
+
+        String categoriaEscolhida = Ler.umaString();
+
+        // Verifica se a categoria é válida
+        boolean categoriaValida = false;
+        for (String categoria : Produto.categoriasPossiveis) {
+            if (categoria.equalsIgnoreCase(categoriaEscolhida)) {
+                categoriaValida = true;
+                break;
+            }
+        }
+
+        if (!categoriaValida) {
+            System.out.println("Categoria inválida!");
+            return;
+        }
+
+        // Lista os produtos da categoria escolhida
+        System.out.println("Produtos disponíveis na categoria: " + categoriaEscolhida);
+        boolean produtoEncontrado = false;
+        for (Produto produto : produtos) {
+            if (produto.getCategoria().equalsIgnoreCase(categoriaEscolhida)) {
+                System.out.println("Código: " + produto.getCod() + " - Nome: " + produto.getNome() + " - Preço: " + produto.getPreco() + "€");
+                produtoEncontrado = true;
+            }
+        }
+
+        if (!produtoEncontrado) {
+            System.out.println("Nenhum produto encontrado nessa categoria.");
+            return;
+        }
+
+        // Solicita o código do produto a ser alterado
+        System.out.println("Insira o código do produto que deseja alterar:");
+        int codigoAlterar = Ler.umInt();
+
+        // Procura o produto com o código fornecido
+        Produto produtoAAlterar = null;
+        for (Produto produto : produtos) {
+            if (produto.getCod() == codigoAlterar) {
+                produtoAAlterar = produto;
+                break;
+            }
+        }
+
+        if (produtoAAlterar == null) {
+            System.out.println("Nenhum produto encontrado com o código fornecido.");
+            return;
+        }
+
+        // Solicita o novo preço
+        System.out.println("Insira o novo preço para o produto " + produtoAAlterar.getNome() + ":");
+        double novoPreco = Ler.umDouble();
+
+        // Atualiza o preço do produto
+        produtoAAlterar.setPreco(novoPreco);
+        System.out.println("Preço atualizado com sucesso! Novo preço de " + produtoAAlterar.getNome() + ": " + produtoAAlterar.getPreco() + "€");
+
+        // Atualiza o arquivo "produtos.dat"
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
+            os.writeObject(produtos);
+            os.flush();
+            os.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
+        }
+    }
+
 
 }

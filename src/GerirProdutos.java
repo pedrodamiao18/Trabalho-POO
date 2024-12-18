@@ -47,6 +47,7 @@ public class GerirProdutos {
                     FuncProdutos.apagarProduto(produtos);
                     break;
                 case 4:
+                    FuncProdutos.alterarPrecoProduto(produtos);
                     break;
                 case 5:
                     FuncProdutos.listarProdutosCategoria(produtos);
