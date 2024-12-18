@@ -9,7 +9,7 @@ public class GerirProdutos {
         System.out.println("2 - Listar produtos");
         System.out.println("3 - Apagar produto");
         System.out.println("4 - Alterar preço de um produto");
-        System.out.println("5 - ");
+        System.out.println("5 -  Listar produtos por categoria");
         System.out.println("6 – ");
         System.out.println("7 - Sair");
         System.out.println("Qual a sua opção:");
@@ -24,7 +24,7 @@ public class GerirProdutos {
         ArrayList<Produto> produtos = new ArrayList<>();
         // Ler ficheiro
         try {
-            ObjectInputStream is = new ObjectInputStream( new FileInputStream("produtos.dat"));
+            ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/produtos.dat"));
             produtos = (ArrayList<Produto>) is.readObject();
         }
         catch (IOException e){
@@ -41,12 +41,14 @@ public class GerirProdutos {
                     FuncProdutos.adicionarProduto(produtos);
                     break;
                 case 2:
+                    System.out.println(produtos);
                     break;
                 case 3:
                     break;
                 case 4:
                     break;
                 case 5:
+                    FuncProdutos.listarProdutosCategoria(produtos);
                     break;
                 case 6:
                     break;

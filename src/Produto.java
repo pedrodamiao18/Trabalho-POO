@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Produto implements Serializable {
     private int cod;
@@ -7,21 +6,24 @@ public class Produto implements Serializable {
     private String nome;
     private int stock;
     private double preco;
-    private String categoria;
-    private LocalDate validade;
+    private String categoria; // mercearia, congelados, lacteos, talho, peixaria, frutaria, legumes, padaria, charcutaria, bebidas
     private int quantidadeVendida;
     private double valorFaturado;
     private String unidadeMedida;
     private double quantidadeMedida;
 
-    public Produto(String nome, String categoria, double preco, int stock, LocalDate validade, String unidadeMedida, double quantidadeMediade) {
+    public static final String[] categoriasPossiveis = {
+            "Mercearia", "Congelados", "Lacteos", "Talho", "Peixaria",
+            "Frutaria", "Legumes", "Padaria", "Charcutaria", "Bebidas"
+    };
+
+    public Produto(String nome, String categoria, double preco, int stock, String unidadeMedida, double quantidadeMedida) {
         ultimo++;
         cod = ultimo;
         this.categoria = categoria;
         this.nome = nome;
         this.preco = preco;
         this.stock = stock;
-        this.validade = validade;
         quantidadeVendida = 0;
         valorFaturado = 0.0;
         this.unidadeMedida = unidadeMedida;
@@ -60,14 +62,6 @@ public class Produto implements Serializable {
         this.categoria = categoria;
     }
 
-    public LocalDate getValidade() {
-        return validade;
-    }
-
-    public void setValidade(LocalDate validade) {
-        this.validade = validade;
-    }
-
     public int getQuantidadeVendida() {
         return quantidadeVendida;
     }
@@ -76,26 +70,29 @@ public class Produto implements Serializable {
         return valorFaturado;
     }
 
-
     @Override
     public String toString() {
         return "Produto{" +
-                "cod=" + cod +
-                ", categoria='" + categoria + '\'' +
-                ", nome='" + nome + '\'' +
-                ", preco=" + preco +
-                ", stock=" + stock +
-                ", unidadeMedida='" + unidadeMedida + '\'' +
-                ", quantidadeMedida=" + quantidadeMedida +
-                ", validade=" + validade +
-                '}';
+                "cod = " + cod +
+                ", categoria = '" + categoria + '\'' +
+                ", nome = '" + nome + '\'' +
+                ", preco = " + preco + "€" +
+                ", stock = " + stock +
+                ", quantidade = " + quantidadeMedida + " " + unidadeMedida +
+                '}' + "\n";
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj != null && this.getClass() == obj.getClass()){
+        if (obj != null && this.getClass() == obj.getClass()) {
             Produto p = (Produto) obj;
-            return(this.nome.equals(p.nome) && this.stock == p.stock && this.preco == p.preco);
+            return this.cod == p.cod &&
+                    this.nome.equals(p.nome) &&
+                    this.stock == p.stock &&
+                    this.preco == p.preco &&
+                    this.categoria.equals(p.categoria) &&
+                    this.unidadeMedida.equals(p.unidadeMedida) &&
+                    this.quantidadeMedida == p.quantidadeMedida;
         }
         return false;
     }
