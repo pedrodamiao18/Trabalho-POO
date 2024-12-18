@@ -8,24 +8,22 @@ public class Produto implements Serializable {
     private int stock;
     private double preco;
     private String categoria; //mercearia, congelados, lacteos, talho, peixaria, frutaria, legumes, padaria, charcutaria, bebidas
-    private LocalDate validade;
     private int quantidadeVendida;
     private double valorFaturado;
     private String unidadeMedida;
     private double quantidadeMedida;
     public static final String[] categoriasPossiveis = {
-            "mercearia", "congelados", "lacteos", "talho", "peixaria",
-            "frutaria", "legumes", "padaria", "charcutaria", "bebidas"
+            "Mercearia", "Congelados", "Lacteos", "Talho", "Peixaria",
+            "Frutaria", "Legumes", "Padaria", "Charcutaria", "Bebidas"
     };
 
-    public Produto(String nome, String categoria, double preco, int stock, LocalDate validade, String unidadeMedida, double quantidadeMedida) {
+    public Produto(String nome, String categoria, double preco, int stock, String unidadeMedida, double quantidadeMedida) {
         ultimo++;
         cod = ultimo;
         this.categoria = categoria;
         this.nome = nome;
         this.preco = preco;
         this.stock = stock;
-        this.validade = validade;
         quantidadeVendida = 0;
         valorFaturado = 0.0;
         this.unidadeMedida = unidadeMedida;
@@ -64,14 +62,6 @@ public class Produto implements Serializable {
         this.categoria = categoria;
     }
 
-    public LocalDate getValidade() {
-        return validade;
-    }
-
-    public void setValidade(LocalDate validade) {
-        this.validade = validade;
-    }
-
     public int getQuantidadeVendida() {
         return quantidadeVendida;
     }
@@ -90,7 +80,6 @@ public class Produto implements Serializable {
                 ", preco = " + preco + "€" +
                 ", stock = " + stock +
                 ", quantidade = " + quantidadeMedida + " " + unidadeMedida +
-                ", validade = " + validade +
                 '}'+ "\n";
     }
 
@@ -103,7 +92,6 @@ public class Produto implements Serializable {
                    this.stock == p.stock &&
                    this.preco == p.preco &&
                    this.categoria.equals(p.categoria) &&
-                   this.validade.equals(p.validade) &&
                    this.unidadeMedida.equals(p.unidadeMedida) &&
                    this.quantidadeMedida == p.quantidadeMedida;
         }

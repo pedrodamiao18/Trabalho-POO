@@ -37,10 +37,6 @@ public class FuncProdutos {
         System.out.println("Digite o stock do produto:");
         int stock = Ler.umInt();
 
-        System.out.println("Digite a validade (formato: yyyy-MM-dd):");
-        String data = Ler.umaString();
-        LocalDate validade = LocalDate.parse(data);
-
         System.out.println("Digite a unidade de medida (ex: Kg, Litro):");
         String unidadeMedida = Ler.umaString();
 
@@ -48,7 +44,7 @@ public class FuncProdutos {
         double quantidadeMedida = Ler.umDouble();
 
         // Criar o produto e adicionar à lista
-        Produto novoProduto = new Produto(nome, categoria, preco, stock, validade, unidadeMedida, quantidadeMedida);
+        Produto novoProduto = new Produto(nome, categoria, preco, stock, unidadeMedida, quantidadeMedida);
         produtos.add(novoProduto);
 
         System.out.println("Produto adicionado com sucesso: " + novoProduto);
