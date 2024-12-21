@@ -4,20 +4,20 @@ import java.io.*;
 
 public class FuncProdutos {
     public static void adicionarProduto(ArrayList<Produto> produtos) {
+
         System.out.println("Digite a categoria do produto (Escolha entre as opções):");
         for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + ", ");
+            System.out.print(categoria + " ");
         }
-        System.out.println(); // Pula linha após mostrar as categorias
+        System.out.println();
 
         String categoria = Ler.umaString();
 
         // Verificar se a categoria é válida usando um for
         boolean categoriaValida = false;
         for (String cat : Produto.categoriasPossiveis) {
-            if (cat.equalsIgnoreCase(categoria)) { // Comparação case insensitive
+            if (cat.equals(categoria)) { // Comparação case insensitive
                 categoriaValida = true;
-                break;
             }
         }
 
@@ -58,10 +58,11 @@ public class FuncProdutos {
     }
 
     public static void apagarProduto(ArrayList<Produto> produtos) {
+
         // Solicita a categoria do produto
         System.out.println("Insira a categoria do produto que pretende remover!");
         for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + ", ");
+            System.out.print(categoria + " ");
         }
         System.out.println();
 
@@ -70,9 +71,8 @@ public class FuncProdutos {
         // Verifica se a categoria é válida
         boolean categoriaValida = false;
         for (String categoria : Produto.categoriasPossiveis) {
-            if (categoria.equalsIgnoreCase(categoriaEscolhida)) {
+            if (categoria.equals(categoriaEscolhida)) {
                 categoriaValida = true;
-                break;
             }
         }
 
@@ -85,7 +85,7 @@ public class FuncProdutos {
         System.out.println("Produtos disponíveis na categoria: " + categoriaEscolhida);
         boolean produtoEncontrado = false;
         for (Produto produto : produtos) {
-            if (produto.getCategoria().equalsIgnoreCase(categoriaEscolhida)) {
+            if (produto.getCategoria().equals(categoriaEscolhida)) {
                 System.out.println("Código: " + produto.getCod() + " - " + produto.getNome());
                 produtoEncontrado = true;
             }
@@ -101,18 +101,16 @@ public class FuncProdutos {
         int codigoRemover = Ler.umInt();
 
         // Procura e remove o produto com o código fornecido
-        Produto produtoARemover = null;
+        boolean produtoARemover = false;
         for (Produto produto : produtos) {
             if (produto.getCod() == codigoRemover) {
-                produtoARemover = produto;
-                break;
+                produtos.remove(produto);
+                System.out.println("Produto removido com sucesso!");
+                produtoARemover = true;
             }
         }
 
-        if (produtoARemover != null) {
-            produtos.remove(produtoARemover);
-            System.out.println("Produto removido com sucesso!");
-        } else {
+        if (!produtoARemover) {
             System.out.println("Nenhum produto encontrado com o código fornecido.");
         }
 
@@ -126,11 +124,12 @@ public class FuncProdutos {
             System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
         }
     }
+
     public static void alterarPrecoProduto(ArrayList<Produto> produtos) {
         // Solicita a categoria do produto
         System.out.println("Insira a categoria do produto cujo preço deseja alterar:");
         for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + ", ");
+            System.out.print(categoria + " ");
         }
         System.out.println();
 
@@ -139,9 +138,8 @@ public class FuncProdutos {
         // Verifica se a categoria é válida
         boolean categoriaValida = false;
         for (String categoria : Produto.categoriasPossiveis) {
-            if (categoria.equalsIgnoreCase(categoriaEscolhida)) {
+            if (categoria.equals(categoriaEscolhida)) {
                 categoriaValida = true;
-                break;
             }
         }
 
@@ -154,7 +152,7 @@ public class FuncProdutos {
         System.out.println("Produtos disponíveis na categoria: " + categoriaEscolhida);
         boolean produtoEncontrado = false;
         for (Produto produto : produtos) {
-            if (produto.getCategoria().equalsIgnoreCase(categoriaEscolhida)) {
+            if (produto.getCategoria().equals(categoriaEscolhida)) {
                 System.out.println("Código: " + produto.getCod() + " - Nome: " + produto.getNome() + " - Preço: " + produto.getPreco() + "€");
                 produtoEncontrado = true;
             }
@@ -170,26 +168,20 @@ public class FuncProdutos {
         int codigoAlterar = Ler.umInt();
 
         // Procura o produto com o código fornecido
-        Produto produtoAAlterar = null;
+        boolean produtoAAlterar = false;
         for (Produto produto : produtos) {
             if (produto.getCod() == codigoAlterar) {
-                produtoAAlterar = produto;
-                break;
+                System.out.println("Insira o novo preço para o produto " + produto.getNome() + ":");
+                double novoPreco = Ler.umDouble();
+                produto.setPreco(novoPreco);
+                System.out.println("Preço atualizado com sucesso! Novo preço de " + produto.getNome() + ": " + produto.getPreco() + "€");
+                produtoAAlterar = true;
             }
         }
 
-        if (produtoAAlterar == null) {
+        if (!produtoAAlterar) {
             System.out.println("Nenhum produto encontrado com o código fornecido.");
-            return;
         }
-
-        // Solicita o novo preço
-        System.out.println("Insira o novo preço para o produto " + produtoAAlterar.getNome() + ":");
-        double novoPreco = Ler.umDouble();
-
-        // Atualiza o preço do produto
-        produtoAAlterar.setPreco(novoPreco);
-        System.out.println("Preço atualizado com sucesso! Novo preço de " + produtoAAlterar.getNome() + ": " + produtoAAlterar.getPreco() + "€");
 
         // Atualiza o arquivo "produtos.dat"
         try {
@@ -207,7 +199,7 @@ public class FuncProdutos {
 
         System.out.println("Digite a categoria do produto (Escolha entre as opções):");
         for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + ", ");
+            System.out.print(categoria + " ");
         }
         System.out.println(); // Pula linha após mostrar as categorias
 
@@ -218,7 +210,7 @@ public class FuncProdutos {
         for (String cat : Produto.categoriasPossiveis) {
             if (cat.equals(categoria)) { // Comparação case insensitive
                 categoriaValida = true;
-                break;
+
             }
         }
 
@@ -234,11 +226,11 @@ public class FuncProdutos {
         }
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
-            // escrever o objeto livros no ficheiro
             os.writeObject(produtos);
-            os.flush(); // os dados são copiados de memória para o disco
+            os.flush();
+            os.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
         }
     }
 
