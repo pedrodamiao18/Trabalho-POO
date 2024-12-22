@@ -233,5 +233,25 @@ public class FuncProdutos {
             System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
         }
     }
+    
+    public static ArrayList<Produto> lerProdutosDoArquivo() {
+        ArrayList<Produto> produtos = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("produtos.dat"))) {
+            while (true) {
+                try {
+                    Produto produto = (Produto) ois.readObject();
+                    produtos.add(produto);
+                } catch (EOFException e) {
+                    // Fim do arquivo
+                    break;
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return produtos;
+    }
 
 }
