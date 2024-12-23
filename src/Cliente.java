@@ -1,4 +1,6 @@
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
     private String nome;
     private int telemovel;
     private int nif;
@@ -58,6 +60,8 @@ public class Cliente {
         this.telemovel = telemovel;
     }
 
+
+
     @Override
     public String toString() {
         return "Cliente{" +
@@ -68,4 +72,6 @@ public class Cliente {
                 ", numeroDeCompras=" + numeroDeCompras +
                 '}';
     }
+
+
 }

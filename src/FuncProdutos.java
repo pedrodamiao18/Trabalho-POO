@@ -298,22 +298,19 @@ public class FuncProdutos {
     
     public static ArrayList<Produto> lerProdutosDoArquivo() {
         ArrayList<Produto> produtos = new ArrayList<>();
-
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("produtos.dat"))) {
-            while (true) {
-                try {
-                    Produto produto = (Produto) ois.readObject();
-                    produtos.add(produto);
-                } catch (EOFException e) {
-                    // Fim do arquivo
-                    break;
-                }
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        // Ler ficheiro
+        try {
+            ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/produtos.dat"));
+            produtos = (ArrayList<Produto>) is.readObject();
         }
-
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        catch ( ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         return produtos;
     }
+
 
 }

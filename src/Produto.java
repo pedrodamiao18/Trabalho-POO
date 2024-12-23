@@ -73,6 +73,14 @@ public class Produto implements Serializable {
         return valorFaturado;
     }
 
+    public void setQuantidadeVendida(int quantidadeVendida) {
+        this.quantidadeVendida = quantidadeVendida;
+    }
+
+    public void setValorFaturado(double valorFaturado) {
+        this.valorFaturado = valorFaturado;
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
