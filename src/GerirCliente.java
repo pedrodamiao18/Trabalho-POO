@@ -38,7 +38,9 @@ public class GerirCliente {
 			case 1:
 		        // Imprime os produtos lidos do arquivo
 		        for (int i = 0; i<produtos.size(); i++) {
+		        	System.out.println("Categoria: " + produtos.get(i).getCategoria());
 		            System.out.println("Código: " + produtos.get(i).getCod());
+		            System.out.println("Nome: " + produtos.get(i).getNome());
 		            System.out.println("Preço: " + produtos.get(i).getPreco());
 		            System.out.println("Stock: " + produtos.get(i).getStock());
 		            System.out.println("--------------------");
@@ -53,7 +55,7 @@ public class GerirCliente {
 				funcFatura.VerificarTotal(nif);
 				break;
 			case 4:
-				System.out.print("1-Mudar o nome 2-Mudar o NIF 0-Sair");
+				System.out.print("1 - Mudar o nome 2 - Mudar o NIF 3 - Mudar o telemovel 0-Sair");
 				int opcao = Ler.umInt();
 				if(opcao == 1) {
 					String novonome = Ler.umaString();
@@ -61,7 +63,10 @@ public class GerirCliente {
 				}else {if(opcao == 2) {
 					int novonif = Ler.umInt();
 					c.setNif(novonif);
-				}}
+				}else {if(opcao == 3) {
+					int novotel = Ler.umInt();
+					c.setTelemovel;
+				}}}
 				break;
 			case 5:
 				funcFatura.criarFatura(faturas, lista, produtos, c);
