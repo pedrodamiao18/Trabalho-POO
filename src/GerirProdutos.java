@@ -53,6 +53,7 @@ public class GerirProdutos {
                     FuncProdutos.listarProdutosCategoria(produtos);
                     break;
                 case 6:
+                    FuncProdutos.adicionarStock(produtos);
                     break;
             }
         } while(escolha != 7);

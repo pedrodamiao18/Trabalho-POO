@@ -233,6 +233,68 @@ public class FuncProdutos {
             System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
         }
     }
+
+    public static void adicionarStock(ArrayList<Produto> produtos) {
+        // Solicita a categoria do produto
+        System.out.println("Insira a categoria do produto cujo preço deseja alterar:");
+        for (String categoria : Produto.categoriasPossiveis) {
+            System.out.print(categoria + " ");
+        }
+        System.out.println();
+
+        String categoriaEscolhida = Ler.umaString();
+
+        // Verifica se a categoria é válida
+        boolean categoriaValida = false;
+        for (String categoria : Produto.categoriasPossiveis) {
+            if (categoria.equals(categoriaEscolhida)) {
+                categoriaValida = true;
+            }
+        }
+
+        if (!categoriaValida) {
+            System.out.println("Categoria inválida!");
+            return;
+        }
+        // Lista os produtos da categoria escolhida
+        System.out.println("Produtos disponíveis na categoria: " + categoriaEscolhida);
+        boolean produtoEncontrado = false;
+        for (Produto produto : produtos) {
+            if (produto.getCategoria().equals(categoriaEscolhida)) {
+                System.out.println("Código: " + produto.getCod() + " - " + produto.getNome() + " - Stock: " + produto.getStock());
+                produtoEncontrado = true;
+            }
+        }
+
+        if (!produtoEncontrado) {
+            System.out.println("Nenhum produto encontrado nessa categoria.");
+            return;
+        }
+
+        // Lista os produtos da categoria escolhida
+
+        System.out.println("Digite o código do produto que deseja adicionar stock:");
+        int codigo = Ler.umInt();
+
+        for (Produto produto : produtos) {
+            if (produto.getCod() == codigo) {
+                System.out.println("Digite a quantidade de stock a adicionar:");
+                int quantidade = Ler.umInt();
+                produto.setStock(produto.getStock() + quantidade);
+                System.out.println("Stock atualizado com sucesso! Novo stock de " + produto.getNome() + ": " + produto.getStock());
+            }
+        }
+
+        // Atualiza o arquivo "produtos.dat"
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
+            os.writeObject(produtos);
+            os.flush();
+            os.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
+        }
+    }
     
     public static ArrayList<Produto> lerProdutosDoArquivo() {
         ArrayList<Produto> produtos = new ArrayList<>();

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import myinputs.Ler;
 
 public class funcCliente {
