@@ -64,19 +64,18 @@ public class funcFatura {
 	    }
 	    
 	    public static ArrayList<Fatura> lerFaturasdoArquivo(){
-	    	ArrayList<Fatura> faturas = new ArrayList<>();
-	    	try (ObjectInputStream ft = new ObjectInputStream(new FileInputStream("faturas.dat"))){
-	    		while(true) {
-	    			try {
-	    				Fatura fatura = (Fatura) ft.readObject();
-	    				faturas.add(fatura);
-	    			}catch(EOFException e) {
-	    				break;
-	    			}
-	    		}
-	    	} catch (IOException | ClassNotFoundException e) {
-	    		e.printStackTrace();
-	    	}
+			ArrayList<Fatura> faturas = new ArrayList<>();
+			// Ler ficheiro
+			try {
+				ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/faturas.dat"));
+				faturas = (ArrayList<Fatura>) is.readObject();
+			}
+			catch (IOException e){
+				System.out.println(e.getMessage());
+			}
+			catch ( ClassNotFoundException e) {
+				System.out.println(e.getMessage());
+			}
 	    	
 	    	return faturas;
 	    }
@@ -85,7 +84,7 @@ public class funcFatura {
 	    	int totalgasto = 0;
 	    	ArrayList<Fatura> faturas = funcFatura.lerFaturasdoArquivo();
 			for(int i = 0; i < faturas.size(); i++) {
-				if(faturas.get(i).getNif()==nif) {
+				if(faturas.get(i).getCliente().getNif()==nif) {
 					totalgasto += faturas.get(i).getTotal(); 
 				}
 			}

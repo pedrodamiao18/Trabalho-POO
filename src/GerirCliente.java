@@ -21,6 +21,7 @@ public class GerirCliente {
 	public static void main(String args[]) {
 		int escolhaInicial, escolhaPrincipal;
 
+		ArrayList<ProdQtd> lista = new ArrayList<>();
 		ArrayList<Produto> produtos = FuncProdutos.lerProdutosDoArquivo();
 		ArrayList<Fatura> faturas = funcFatura.lerFaturasdoArquivo();
 		ArrayList<Cliente> clientes = new ArrayList<>();
@@ -66,7 +67,7 @@ public class GerirCliente {
 					System.out.println(produtos);
 					break;
 				case 2: // Criar lista
-
+					FuncCliente.criarLista(lista);
 					break;
 				case 3: // Verificar total gasto
 					System.out.print("Introduza o seu NIF: ");

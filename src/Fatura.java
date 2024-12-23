@@ -26,4 +26,11 @@ public class Fatura  implements Serializable{
 		this.total = total;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 }

@@ -67,4 +67,18 @@ public class FuncCliente {
 			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
 		}
 	}
+
+	public static void criarLista(ArrayList<ProdQtd> lista) {
+		System.out.print("1 - adicionar produto \n");
+		System.out.print("0 - Sair \n");
+		int a = Ler.umInt();
+		if (a == 1) {
+			System.out.print("Introduza o codigo do produto: ");
+			int cod = Ler.umInt();
+			System.out.print("Introduza a quantidade: ");
+			int qtd = Ler.umInt();
+			ProdQtd p = new ProdQtd(cod, qtd);
+			lista.add(p);
+		}
+	}
 }
