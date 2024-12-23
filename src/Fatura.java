@@ -1,16 +1,15 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Fatura implements Serielizable {
+public class Fatura extends Cliente implements Serializable{
 	private int numfatura;
 	private LocalDate data;
-	private Cliente c;
 	private double total;
 
 	public Fatura(Cliente c, int numfatura) {
-		numFatura = numfatura;
+		super(c.getNif(), c.getNome(), c.getTelemovel());
+		this.numfatura = numfatura;
 		data = LocalDate.now();
-		this.c = c;
 		this.total = 0;
 	}
 	

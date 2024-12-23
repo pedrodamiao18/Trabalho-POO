@@ -18,6 +18,46 @@ public class Cliente {
         this.gastoTotal += valor;
     }
 
+    public double getGastoTotal() {
+        return gastoTotal;
+    }
+
+    public void setGastoTotal(double gastoTotal) {
+        this.gastoTotal = gastoTotal;
+    }
+
+    public int getNif() {
+        return nif;
+    }
+
+    public void setNif(int nif) {
+        this.nif = nif;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getNumeroDeCompras() {
+        return numeroDeCompras;
+    }
+
+    public void setNumeroDeCompras(int numeroDeCompras) {
+        this.numeroDeCompras = numeroDeCompras;
+    }
+
+    public int getTelemovel() {
+        return telemovel;
+    }
+
+    public void setTelemovel(int telemovel) {
+        this.telemovel = telemovel;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +

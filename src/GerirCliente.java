@@ -25,7 +25,9 @@ public class GerirCliente {
 		String nome = Ler.umaString();
 		System.out.print("Introduza o seu NIF");
 		int nif = Ler.umInt();
-		Cliente c = new Cliente(nome, nif);
+		System.out.print("Introduza o seu telemovel");
+		int telemovel = Ler.umInt();
+		Cliente c = new Cliente(nif, nome, telemovel);
 		ArrayList<ProdQtd> lista = new ArrayList<>();
 		ArrayList<Produto> produtos = FuncProdutos.lerProdutosDoArquivo();
 		ArrayList<Fatura> faturas = funcFatura.lerFaturasdoArquivo();
@@ -36,9 +38,9 @@ public class GerirCliente {
 			case 1:
 		        // Imprime os produtos lidos do arquivo
 		        for (int i = 0; i<produtos.size(); i++) {
-		            System.out.println("Código: " + produtos.get(i).getCodigo());
+		            System.out.println("Código: " + produtos.get(i).getCod());
 		            System.out.println("Preço: " + produtos.get(i).getPreco());
-		            System.out.println("Quantidade: " + produtos.get(i).getQuant());
+		            System.out.println("Stock: " + produtos.get(i).getStock());
 		            System.out.println("--------------------");
 		        }
 				break;

@@ -25,13 +25,13 @@ public class funcFatura {
 	            // Itens da Fatura
 	            for (int i = 0; i < lista.size(); i++) {
 	                for (int j = 0; j < produtos.size(); j++) {
-	                    if (lista.get(i).getCod() == produtos.get(j).getCodigo()) {
+	                    if (lista.get(i).getCod() == produtos.get(j).getCod()) {
 	                        int qtd = lista.get(i).getQtd();
 	                        double preco = produtos.get(j).getPreco();
 	                        double valorItem = qtd * preco;
 	                        f.setTotal(f.getTotal()+valorItem);
 	                    
-	                        produtos.get(j).setQuant(produtos.get(j).getQuant() - qtd); 
+	                        produtos.get(j).setStock(produtos.get(j).getStock() - qtd);
 	                    }//escrever a lista dos pordutos com as quantidades atualizadas 
 	                }
 	            }
