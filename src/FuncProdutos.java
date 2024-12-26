@@ -3,289 +3,17 @@ import java.util.ArrayList;
 import java.io.*;
 
 public class FuncProdutos {
-    public static void adicionarProduto(ArrayList<Produto> produtos) {
 
-        System.out.println("Digite a categoria do produto (Escolha entre as opções):");
-        for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + " ");
-        }
-        System.out.println();
-
-        String categoria = Ler.umaString();
-
-        // Verificar se a categoria é válida usando um for
-        boolean categoriaValida = false;
-        for (String cat : Produto.categoriasPossiveis) {
-            if (cat.equals(categoria)) { // Comparação case insensitive
-                categoriaValida = true;
-            }
-        }
-
-        if (!categoriaValida) {
-            System.out.println("Categoria inválida! Produto não adicionado.");
-            return;
-        }
-
-        System.out.println("Digite o nome do produto:");
-        String nome = Ler.umaString();
-
-        System.out.println("Digite o preço do produto:");
-        double preco = Ler.umDouble();
-
-        System.out.println("Digite o stock do produto:");
-        int stock = Ler.umInt();
-
-        System.out.println("Digite a unidade de medida (ex: Kg, Litro):");
-        String unidadeMedida = Ler.umaString();
-
-        System.out.println("Digite a quantidade medida:");
-        double quantidadeMedida = Ler.umDouble();
-
-        // Criar o produto e adicionar à lista
-        Produto novoProduto = new Produto(nome, categoria, preco, stock, unidadeMedida, quantidadeMedida);
-        produtos.add(novoProduto);
-
-        System.out.println("Produto adicionado com sucesso: " + novoProduto);
-
-        try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
-            // escrever o objeto livros no ficheiro
-            os.writeObject(produtos);
-            os.flush(); // os dados são copiados de memória para o disco
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void apagarProduto(ArrayList<Produto> produtos) {
-
-        // Solicita a categoria do produto
-        System.out.println("Insira a categoria do produto que pretende remover!");
-        for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + " ");
-        }
-        System.out.println();
-
-        String categoriaEscolhida = Ler.umaString();
-
-        // Verifica se a categoria é válida
-        boolean categoriaValida = false;
-        for (String categoria : Produto.categoriasPossiveis) {
-            if (categoria.equals(categoriaEscolhida)) {
-                categoriaValida = true;
-            }
-        }
-
-        if (!categoriaValida) {
-            System.out.println("Categoria inválida!");
-            return;
-        }
-
-        // Lista os produtos da categoria escolhida
-        System.out.println("Produtos disponíveis na categoria: " + categoriaEscolhida);
-        boolean produtoEncontrado = false;
-        for (Produto produto : produtos) {
-            if (produto.getCategoria().equals(categoriaEscolhida)) {
-                System.out.println("Código: " + produto.getCod() + " - " + produto.getNome());
-                produtoEncontrado = true;
-            }
-        }
-
-        if (!produtoEncontrado) {
-            System.out.println("Nenhum produto encontrado nessa categoria.");
-            return;
-        }
-
-        // Solicita o código do produto a ser removido
-        System.out.println("Insira o código do produto que deseja remover:");
-        int codigoRemover = Ler.umInt();
-
-        // Procura e remove o produto com o código fornecido
-        boolean produtoARemover = false;
-        for (Produto produto : produtos) {
-            if (produto.getCod() == codigoRemover) {
-                produtos.remove(produto);
-                System.out.println("Produto removido com sucesso!");
-                produtoARemover = true;
-            }
-        }
-
-        if (!produtoARemover) {
-            System.out.println("Nenhum produto encontrado com o código fornecido.");
-        }
-
-        // Atualiza o arquivo "produtos.dat"
-        try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
-            os.writeObject(produtos);
-            os.flush();
-            os.close();
-        } catch (IOException e) {
-            System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
-        }
-    }
-
-    public static void alterarPrecoProduto(ArrayList<Produto> produtos) {
-        // Solicita a categoria do produto
-        System.out.println("Insira a categoria do produto cujo preço deseja alterar:");
-        for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + " ");
-        }
-        System.out.println();
-
-        String categoriaEscolhida = Ler.umaString();
-
-        // Verifica se a categoria é válida
-        boolean categoriaValida = false;
-        for (String categoria : Produto.categoriasPossiveis) {
-            if (categoria.equals(categoriaEscolhida)) {
-                categoriaValida = true;
-            }
-        }
-
-        if (!categoriaValida) {
-            System.out.println("Categoria inválida!");
-            return;
-        }
-
-        // Lista os produtos da categoria escolhida
-        System.out.println("Produtos disponíveis na categoria: " + categoriaEscolhida);
-        boolean produtoEncontrado = false;
-        for (Produto produto : produtos) {
-            if (produto.getCategoria().equals(categoriaEscolhida)) {
-                System.out.println("Código: " + produto.getCod() + " - Nome: " + produto.getNome() + " - Preço: " + produto.getPreco() + "€");
-                produtoEncontrado = true;
-            }
-        }
-
-        if (!produtoEncontrado) {
-            System.out.println("Nenhum produto encontrado nessa categoria.");
-            return;
-        }
-
-        // Solicita o código do produto a ser alterado
-        System.out.println("Insira o código do produto que deseja alterar:");
-        int codigoAlterar = Ler.umInt();
-
-        // Procura o produto com o código fornecido
-        boolean produtoAAlterar = false;
-        for (Produto produto : produtos) {
-            if (produto.getCod() == codigoAlterar) {
-                System.out.println("Insira o novo preço para o produto " + produto.getNome() + ":");
-                double novoPreco = Ler.umDouble();
-                produto.setPreco(novoPreco);
-                System.out.println("Preço atualizado com sucesso! Novo preço de " + produto.getNome() + ": " + produto.getPreco() + "€");
-                produtoAAlterar = true;
-            }
-        }
-
-        if (!produtoAAlterar) {
-            System.out.println("Nenhum produto encontrado com o código fornecido.");
-        }
-
-        // Atualiza o arquivo "produtos.dat"
-        try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
-            os.writeObject(produtos);
-            os.flush();
-            os.close();
-        } catch (IOException e) {
-            System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
-        }
-    }
-
-
-    public static void listarProdutosCategoria (ArrayList<Produto> produtos) {
-
-        System.out.println("Digite a categoria do produto (Escolha entre as opções):");
-        for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + " ");
-        }
-        System.out.println(); // Pula linha após mostrar as categorias
-
-        String categoria = Ler.umaString();
-
-        // Verificar se a categoria é válida usando um for
-        boolean categoriaValida = false;
-        for (String cat : Produto.categoriasPossiveis) {
-            if (cat.equals(categoria)) { // Comparação case insensitive
-                categoriaValida = true;
-
-            }
-        }
-
-        if (!categoriaValida) {
-            System.out.println("Categoria inválida! Produto não adicionado.");
-            return;
-        }
-
-        for (Produto produto : produtos) {
-            if (produto.getCategoria().equals(categoria)) {
-                System.out.println(produto);
-            }
-        }
-        try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
-            os.writeObject(produtos);
-            os.flush();
-            os.close();
-        } catch (IOException e) {
-            System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
-        }
-    }
-
-    public static void adicionarStock(ArrayList<Produto> produtos) {
-        // Solicita a categoria do produto
-        System.out.println("Insira a categoria do produto cujo preço deseja alterar:");
-        for (String categoria : Produto.categoriasPossiveis) {
-            System.out.print(categoria + " ");
-        }
-        System.out.println();
-
-        String categoriaEscolhida = Ler.umaString();
-
-        // Verifica se a categoria é válida
-        boolean categoriaValida = false;
-        for (String categoria : Produto.categoriasPossiveis) {
-            if (categoria.equals(categoriaEscolhida)) {
-                categoriaValida = true;
-            }
-        }
-
-        if (!categoriaValida) {
-            System.out.println("Categoria inválida!");
-            return;
-        }
-        // Lista os produtos da categoria escolhida
-        System.out.println("Produtos disponíveis na categoria: " + categoriaEscolhida);
-        boolean produtoEncontrado = false;
-        for (Produto produto : produtos) {
-            if (produto.getCategoria().equals(categoriaEscolhida)) {
-                System.out.println("Código: " + produto.getCod() + " - " + produto.getNome() + " - Stock: " + produto.getStock());
-                produtoEncontrado = true;
-            }
-        }
-
-        if (!produtoEncontrado) {
-            System.out.println("Nenhum produto encontrado nessa categoria.");
-            return;
-        }
-
-        // Lista os produtos da categoria escolhida
-
-        System.out.println("Digite o código do produto que deseja adicionar stock:");
-        int codigo = Ler.umInt();
-
+    private static Produto encontrarProdutoPorCodigo(ArrayList<Produto> produtos, int codigo) throws ProdutoNaoEncontradoException {
         for (Produto produto : produtos) {
             if (produto.getCod() == codigo) {
-                System.out.println("Digite a quantidade de stock a adicionar:");
-                int quantidade = Ler.umInt();
-                produto.setStock(produto.getStock() + quantidade);
-                System.out.println("Stock atualizado com sucesso! Novo stock de " + produto.getNome() + ": " + produto.getStock());
+                return produto;
             }
         }
+        throw new ProdutoNaoEncontradoException("Produto com o código " + codigo + " não encontrado.");
+    }
 
-        // Atualiza o arquivo "produtos.dat"
+    private static void atualizarArquivo(ArrayList<Produto> produtos) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
             os.writeObject(produtos);
@@ -295,7 +23,186 @@ public class FuncProdutos {
             System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
         }
     }
-    
+
+    // Método para adicionar produto
+    public static void adicionarProduto(ArrayList<Produto> produtos) {
+        try {
+            System.out.println("Digite a categoria do produto (Escolha entre as opções):");
+            for (String categoria : Produto.categoriasPossiveis) {
+                System.out.print(categoria + " ");
+            }
+            System.out.println();
+
+            String categoria = Ler.umaString();
+            verificarCategoria(categoria);
+
+            System.out.println("Digite o nome do produto:");
+            String nome = Ler.umaString();
+
+            System.out.println("Digite o preço do produto:");
+            double preco = Ler.umDouble();
+            if (preco <= 0) {
+                throw new QuantidadeInvalidaException("Preço deve ser maior que zero.");
+            }
+
+            System.out.println("Digite o stock do produto:");
+            int stock = Ler.umInt();
+            if (stock < 0) {
+                throw new QuantidadeInvalidaException("Stock não pode ser negativo.");
+            }
+
+            System.out.println("Digite a unidade de medida (ex: Kg, Litro):");
+            String unidadeMedida = Ler.umaString();
+
+            System.out.println("Digite a quantidade medida:");
+            double quantidadeMedida = Ler.umDouble();
+            if (quantidadeMedida <= 0) {
+                throw new QuantidadeInvalidaException("Quantidade medida deve ser maior que zero.");
+            }
+
+            Produto novoProduto = new Produto(nome, categoria, preco, stock, unidadeMedida, quantidadeMedida);
+            produtos.add(novoProduto);
+            System.out.println("Produto adicionado com sucesso: " + novoProduto);
+
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        atualizarArquivo(produtos);
+    }
+
+    // Método para apagar produto
+    public static void apagarProduto(ArrayList<Produto> produtos) {
+        try {
+            System.out.println("Digite a categoria do produto para remover:");
+            for (String categoria : Produto.categoriasPossiveis) {
+                System.out.print(categoria + " ");
+            }
+            System.out.println();
+
+            String categoriaEscolhida = Ler.umaString();
+            verificarCategoria(categoriaEscolhida);
+
+            System.out.println("Digite o código do produto a remover:");
+            int codigo = Ler.umInt();
+
+            Produto produtoRemover = encontrarProdutoPorCodigo(produtos, codigo);
+            produtos.remove(produtoRemover);
+            System.out.println("Produto removido com sucesso!");
+
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        atualizarArquivo(produtos);
+    }
+
+    // Método para alterar preço
+    public static void alterarPrecoProduto(ArrayList<Produto> produtos) {
+        try {
+            System.out.println("Digite a categoria do produto:");
+            for (String categoria : Produto.categoriasPossiveis) {
+                System.out.print(categoria + " ");
+            }
+            System.out.println();
+
+            String categoriaEscolhida = Ler.umaString();
+            verificarCategoria(categoriaEscolhida);
+
+            System.out.println("Digite o código do produto para alterar o preço:");
+            int codigo = Ler.umInt();
+
+            Produto produto = encontrarProdutoPorCodigo(produtos, codigo);
+
+            System.out.println("Digite o novo preço:");
+            double novoPreco = Ler.umDouble();
+            if (novoPreco <= 0) {
+                throw new QuantidadeInvalidaException("O preço deve ser maior que zero.");
+            }
+
+            produto.setPreco(novoPreco);
+            System.out.println("Preço alterado com sucesso para o produto: " + produto.getNome());
+
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        atualizarArquivo(produtos);
+    }
+
+    // Método para listar produtos por categoria
+    public static void listarProdutosCategoria(ArrayList<Produto> produtos) {
+        try {
+            System.out.println("Digite a categoria do produto:");
+            for (String categoria : Produto.categoriasPossiveis) {
+                System.out.print(categoria + " ");
+            }
+            System.out.println();
+
+            String categoriaEscolhida = Ler.umaString();
+            verificarCategoria(categoriaEscolhida);
+
+            System.out.println("Produtos na categoria " + categoriaEscolhida + ":");
+            boolean produtoEncontrado = false;
+            for (Produto produto : produtos) {
+                if (produto.getCategoria().equalsIgnoreCase(categoriaEscolhida)) {
+                    System.out.println(produto);
+                    produtoEncontrado = true;
+                }
+            }
+
+            if (!produtoEncontrado) {
+                throw new ProdutoNaoEncontradoException("Nenhum produto encontrado nesta categoria.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
+    // Método para adicionar stock
+    public static void adicionarStock(ArrayList<Produto> produtos) {
+        try {
+            System.out.println("Digite a categoria do produto:");
+            for (String categoria : Produto.categoriasPossiveis) {
+                System.out.print(categoria + " ");
+            }
+            System.out.println();
+
+            String categoriaEscolhida = Ler.umaString();
+            verificarCategoria(categoriaEscolhida);
+
+            System.out.println("Digite o código do produto para adicionar stock:");
+            int codigo = Ler.umInt();
+
+            Produto produto = encontrarProdutoPorCodigo(produtos, codigo);
+
+            System.out.println("Digite a quantidade de stock a adicionar:");
+            int quantidade = Ler.umInt();
+            if (quantidade <= 0) {
+                throw new QuantidadeInvalidaException("A quantidade deve ser maior que zero.");
+            }
+
+            produto.setStock(produto.getStock() + quantidade);
+            System.out.println("Stock atualizado com sucesso!");
+
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        atualizarArquivo(produtos);
+    }
+
+    // Métodos auxiliares
+    private static void verificarCategoria(String categoria) throws CategoriaInvalidaException {
+        boolean categoriaValida = false;
+        for (String cat : Produto.categoriasPossiveis) {
+            if (cat.equalsIgnoreCase(categoria)) {
+                categoriaValida = true;
+                break;
+            }
+        }
+        if (!categoriaValida) {
+            throw new CategoriaInvalidaException("Categoria inválida!");
+        }
+    }
+
     public static ArrayList<Produto> lerProdutosDoArquivo() {
         ArrayList<Produto> produtos = new ArrayList<>();
         // Ler ficheiro
@@ -311,6 +218,5 @@ public class FuncProdutos {
         }
         return produtos;
     }
-
 
 }

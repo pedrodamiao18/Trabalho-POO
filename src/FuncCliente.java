@@ -7,57 +7,136 @@ import myinputs.Ler;
 public class FuncCliente {
 
 	public static Cliente novoCliente(ArrayList<Cliente> clientes) {
-		System.out.print("Introduza o seu NIF: \n");
-		int nif = Ler.umInt();
-		System.out.print("Introduza o seu nome: \n");
-		String nome = Ler.umaString();
-		System.out.print("Introduza o seu telemovel: \n");
-		int telemovel = Ler.umInt();
-		Cliente c = new Cliente(nif, nome, telemovel);
-		clientes.add(c);
-
 		try {
-			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/clientes.dat"));
-			os.writeObject(clientes);
-			os.flush();
-			os.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
-		}
-		return c;
-	}
-
-	public static Cliente clienteExistente(ArrayList<Cliente> clientes) {
-		System.out.print("Introduza o seu NIF para continuar: ");
-		int nifExistente = Ler.umInt();
-		boolean clienteEncontrado = false;
-		for (Cliente c : clientes) {
-			if (c.getNif() == nifExistente) {
-				clienteEncontrado = true;
-				System.out.println("Bem-vindo de volta, " + c.getNome() + "!");
-				return c;
+			System.out.print("Introduza o seu NIF: ");
+			int nif = Ler.umInt();
+			if (nif <= 0) {
+				throw new DadosInvalidosException("O NIF deve ser maior que zero.");
 			}
-		}
-		if (!clienteEncontrado) {
-			System.out.println("Cliente não encontrado! Tente novamente.");
-		}
 
+			System.out.print("Introduza o seu nome: ");
+			String nome = Ler.umaString();
+			if (nome == null) {
+				throw new DadosInvalidosException("O nome não pode estar vazio.");
+			}
+
+			System.out.print("Introduza o seu telemovel: ");
+			int telemovel = Ler.umInt();
+			if (telemovel <= 0) {
+				throw new DadosInvalidosException("O telemovel deve ser maior que zero.");
+			}
+
+			Cliente c = new Cliente(nif, nome, telemovel);
+			clientes.add(c);
+			System.out.println("Cliente adicionado com sucesso!");
+
+			atualizarArquivoClientes(clientes);
+			return c;
+
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
 		return null;
 	}
 
+	public static Cliente clienteExistente(ArrayList<Cliente> clientes) {
+		try {
+			System.out.print("Introduza o seu NIF para continuar: ");
+			int nifExistente = Ler.umInt();
+			if (nifExistente <= 0) {
+				throw new DadosInvalidosException("O NIF deve ser maior que zero.");
+			}
+
+			for (Cliente c : clientes) {
+				if (c.getNif() == nifExistente) {
+					System.out.println("Bem-vindo de volta, " + c.getNome() + "!");
+					return c;
+				}
+			}
+			throw new ClienteNaoEncontradoException("Cliente não encontrado!");
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
+		return null;
+	}
+
+	// Método para alterar dados do cliente
 	public static void alterarDados(ArrayList<Cliente> clientes) {
-		System.out.print("Introduza o seu NIF: \n");
-		int nif = Ler.umInt();
+		try {
+			System.out.print("Introduza o seu NIF: ");
+			int nif = Ler.umInt();
+			if (nif <= 0) {
+				throw new DadosInvalidosException("O NIF deve ser maior que zero.");
+			}
+
+
+			Cliente cliente = encontrarClientePorNIF(clientes, nif);
+
+			System.out.print("Introduza o seu novo nome: ");
+			String nome = Ler.umaString();
+			if (nome == null || nome.trim().isEmpty()) {
+				throw new DadosInvalidosException("O nome não pode estar vazio.");
+			}
+			cliente.setNome(nome);
+
+			System.out.print("Introduza o seu novo telemovel: ");
+			int telemovel = Ler.umInt();
+
+			cliente.setTelemovel(telemovel);
+
+			System.out.println("Dados atualizados com sucesso!");
+			atualizarArquivoClientes(clientes);
+
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
+	}
+
+	// Método para criar uma lista de compras
+	public static void criarLista(ArrayList<ProdQtd> lista) {
+		try {
+			System.out.println("1 - Adicionar produto");
+			System.out.println("0 - Sair");
+			int escolha = Ler.umInt();
+
+			if (escolha == 1) {
+				System.out.print("Introduza o código do produto: ");
+				int cod = Ler.umInt();
+
+				System.out.print("Introduza a quantidade: ");
+				int qtd = Ler.umInt();
+				if (qtd <= 0) {
+					throw new DadosInvalidosException("Quantidade deve ser maior que zero.");
+				}
+
+				ProdQtd p = new ProdQtd(cod, qtd);
+				lista.add(p);
+				System.out.println("Produto adicionado à lista.");
+			} else if (escolha == 0) {
+				if (lista.isEmpty()) {
+					throw new ListaVaziaException("A lista está vazia! Não há produtos para processar.");
+				}
+				System.out.println("Lista de compras criada com sucesso.");
+			} else {
+				throw new DadosInvalidosException("Opção inválida!");
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
+	}
+
+	// Métodos auxiliares
+	private static Cliente encontrarClientePorNIF(ArrayList<Cliente> clientes, int nif) throws ClienteNaoEncontradoException {
 		for (Cliente c : clientes) {
 			if (c.getNif() == nif) {
-				System.out.print("Introduza o seu novo nome: \n");
-				String nome = Ler.umaString();
-				c.setNome(nome);
-				System.out.print("Introduza o seu novo telemovel: \n");
-				int telemovel = Ler.umInt();
-				c.setTelemovel(telemovel);
+				return c;
 			}
 		}
+		throw new ClienteNaoEncontradoException("Cliente com NIF " + nif + " não encontrado.");
+	}
+
+	private static void atualizarArquivoClientes(ArrayList<Cliente> clientes) {
 		try {
 			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/clientes.dat"));
 			os.writeObject(clientes);
@@ -67,18 +146,5 @@ public class FuncCliente {
 			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
 		}
 	}
-
-	public static void criarLista(ArrayList<ProdQtd> lista) {
-		System.out.print("1 - adicionar produto \n");
-		System.out.print("0 - Sair \n");
-		int a = Ler.umInt();
-		if (a == 1) {
-			System.out.print("Introduza o codigo do produto: ");
-			int cod = Ler.umInt();
-			System.out.print("Introduza a quantidade: ");
-			int qtd = Ler.umInt();
-			ProdQtd p = new ProdQtd(cod, qtd);
-			lista.add(p);
-		}
-	}
 }
+
