@@ -3,47 +3,69 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import myinputs.Ler;
 import java.io.BufferedReader;
-import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 
-public class funcFatura {
+public class FuncFatura {
 	    
 	    private static String nFatura = "num_fatura.txt";
+
+	public static void atualizarArquivoClientes(ArrayList<Fatura> faturas) {
+		try {
+			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/faturas.dat"));
+			os.writeObject(faturas);
+			os.flush();
+			os.close();
+		} catch (IOException e) {
+			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
+		}
+	}
+
 
 		public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
 	        int numFatura = obterNumeroFatura();
 	        Fatura f = new Fatura(c, numFatura); // Cria uma nova instância de Venda
 
 	        faturas.add(f);
-	        
-	        try{
-	        	ObjectOutputStream fr = new ObjectOutputStream(new FileOutputStream("faturas.dat"));
-	            // Itens da Fatura
-	            for (int i = 0; i < lista.size(); i++) {
-	                for (int j = 0; j < produtos.size(); j++) {
-	                    if (lista.get(i).getCod() == produtos.get(j).getCod()) {
-	                        int qtd = lista.get(i).getQtd();
-	                        double preco = produtos.get(j).getPreco();
-	                        double valorItem = qtd * preco;
-	                        f.setTotal(f.getTotal()+valorItem);
-	                    
-	                        produtos.get(j).setStock(produtos.get(j).getStock() - qtd);
-	                    }//escrever a lista dos pordutos com as quantidades atualizadas 
-	                }
-	            }
-	            
-	            fr.writeObject(faturas);
-	            fr.flush();
-	            
-	            atualizarNumeroFatura(f.getNumfatura());
 
-	        } catch (IOException e) {
-	        	System.out.println(e.getMessage());
-	        }
+
+			ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
+
+			for (int x = 0; x < lista.size(); x++) {
+				// Iterar sobre os clientes para encontrar o cliente correspondente
+				for (Cliente cliente : clientes) {
+					if (c.getNif() == cliente.getNif()) {
+
+						// Iterar sobre os produtos para encontrar o produto correspondente
+						for (Produto produto : produtos) {
+							if (lista.get(x).getCod() == produto.getCod()) {
+								// Obter a quantidade e calcular o valor do item
+								int qtd = lista.get(x).getQtd(); // Corrigido: usa o índice x
+								double preco = produto.getPreco();
+								double valorItem = qtd * preco;
+
+								// Atualizar o total da fatura
+								f.setTotal(f.getTotal() + valorItem);
+
+								// Atualizar o total gasto pelo cliente
+								cliente.setGastoTotal(cliente.getGastoTotal() + valorItem);
+								cliente.setNumeroDeCompras(cliente.getNumeroDeCompras() + 1);
+
+								// Atualizar o estoque do produto
+								produto.setStock(produto.getStock() - qtd);
+							}
+						}
+					}
+				}
+			}
+			FuncProdutos.atualizarArquivo(produtos);
+			FuncCliente.atualizarArquivoClientes(clientes);
+			atualizarNumeroFatura(numFatura);
+			atualizarArquivoClientes(faturas);
+
+
 	    }
 	    
 	    private static int obterNumeroFatura() {
@@ -82,7 +104,7 @@ public class funcFatura {
 	    
 	    public static int VerificarTotal(int nif) {
 	    	int totalgasto = 0;
-	    	ArrayList<Fatura> faturas = funcFatura.lerFaturasdoArquivo();
+	    	ArrayList<Fatura> faturas = FuncFatura.lerFaturasdoArquivo();
 			for(int i = 0; i < faturas.size(); i++) {
 				if(faturas.get(i).getCliente().getNif()==nif) {
 					totalgasto += faturas.get(i).getTotal(); 
@@ -90,4 +112,10 @@ public class funcFatura {
 			}
 			return totalgasto;
 	    }
+
+	public static void imprimirTodasFaturas(ArrayList<Fatura> faturas) {
+		for (Fatura fatura : faturas) {
+			System.out.println(fatura);
+		}
+	}
 }

@@ -23,19 +23,8 @@ public class GerirCliente {
 
 		ArrayList<ProdQtd> lista = new ArrayList<>();
 		ArrayList<Produto> produtos = FuncProdutos.lerProdutosDoArquivo();
-		ArrayList<Fatura> faturas = funcFatura.lerFaturasdoArquivo();
-		ArrayList<Cliente> clientes = new ArrayList<>();
-		// Ler ficheiro
-		try {
-			ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/clientes.dat"));
-			clientes = (ArrayList<Cliente>) is.readObject();
-		}
-		catch (IOException e){
-			System.out.println(e.getMessage());
-		}
-		catch ( ClassNotFoundException e) {
-			System.out.println(e.getMessage());
-		}
+		ArrayList<Fatura> faturas = FuncFatura.lerFaturasdoArquivo();
+		ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
 
 		System.out.println("Bem-vindo ao sistema de gestão de clientes!");
 		System.out.println("1 - Sou um novo cliente");
@@ -70,15 +59,13 @@ public class GerirCliente {
 					FuncCliente.criarLista(lista);
 					break;
 				case 3: // Verificar total gasto
-					System.out.print("Introduza o seu NIF: ");
-					int n = Ler.umInt();
-					funcFatura.VerificarTotal(n);
+					FuncCliente.verificarTotalGasto(clientes);
 					break;
 				case 4: // Alterar dados
 					FuncCliente.alterarDados(clientes);
 					break;
 				case 5: // Proceder para pagamento
-					funcFatura.criarFatura(faturas, lista, produtos, clienteAtual);
+					FuncFatura.criarFatura(faturas, lista, produtos, clienteAtual);
 					break;
 				case 6: // Sair
 					System.out.println("Até breve!");

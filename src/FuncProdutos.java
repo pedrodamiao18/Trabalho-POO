@@ -13,7 +13,7 @@ public class FuncProdutos {
         throw new ProdutoNaoEncontradoException("Produto com o código " + codigo + " não encontrado.");
     }
 
-    private static void atualizarArquivo(ArrayList<Produto> produtos) {
+    public static void atualizarArquivo(ArrayList<Produto> produtos) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/produtos.dat"));
             os.writeObject(produtos);

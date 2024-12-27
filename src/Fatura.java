@@ -33,4 +33,14 @@ public class Fatura  implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	@Override
+	public String toString() {
+		return "Fatura{" +
+				"cliente=" + cliente +
+				", numfatura=" + numfatura +
+				", data=" + data +
+				", total=" + total +
+				'}';
+	}
 }

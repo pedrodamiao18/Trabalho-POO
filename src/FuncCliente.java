@@ -1,10 +1,19 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import myinputs.Ler;
 
 public class FuncCliente {
+
+	public static void atualizarArquivoClientes(ArrayList<Cliente> clientes) {
+		try {
+			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/clientes.dat"));
+			os.writeObject(clientes);
+			os.flush();
+			os.close();
+		} catch (IOException e) {
+			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
+		}
+	}
 
 	public static Cliente novoCliente(ArrayList<Cliente> clientes) {
 		try {
@@ -92,6 +101,23 @@ public class FuncCliente {
 		}
 	}
 
+
+	public static void verificarTotalGasto(ArrayList<Cliente> clientes) {
+		try {
+			System.out.print("Introduza o seu NIF: ");
+			int nif = Ler.umInt();
+			if (nif <= 0) {
+				throw new DadosInvalidosException("O NIF deve ser maior que zero.");
+			}
+
+			Cliente cliente = encontrarClientePorNIF(clientes, nif);
+			System.out.println("Total gasto: " + cliente.getGastoTotal());
+
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
+	}
+
 	// Método para criar uma lista de compras
 	public static void criarLista(ArrayList<ProdQtd> lista) {
 		try {
@@ -136,15 +162,21 @@ public class FuncCliente {
 		throw new ClienteNaoEncontradoException("Cliente com NIF " + nif + " não encontrado.");
 	}
 
-	private static void atualizarArquivoClientes(ArrayList<Cliente> clientes) {
+	public static ArrayList<Cliente> lerClienteDoArquivo() {
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		// Ler ficheiro
 		try {
-			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/clientes.dat"));
-			os.writeObject(clientes);
-			os.flush();
-			os.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
+			ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/clientes.dat"));
+			clientes = (ArrayList<Cliente>) is.readObject();
 		}
+		catch (IOException e){
+			System.out.println(e.getMessage());
+		}
+		catch ( ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		return clientes;
 	}
+
 }
 
