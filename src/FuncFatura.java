@@ -10,7 +10,7 @@ import java.io.FileReader;
 
 public class FuncFatura {
 	    
-	    private static String nFatura = "num_fatura.txt";
+	private static String nFatura = "num_fatura.txt";
 
 	public static void atualizarArquivoClientes(ArrayList<Fatura> faturas) {
 		try {
@@ -46,8 +46,10 @@ public class FuncFatura {
 								double preco = produto.getPreco();
 								double valorItem = qtd * preco;
 
-								// Atualizar o total da fatura
+								produto.setQuantidadeVendida(produto.getQuantidadeVendida() + qtd);
+								produto.setValorFaturado(produto.getValorFaturado() + valorItem);
 								f.setTotal(f.getTotal() + valorItem);
+
 
 								// Atualizar o total gasto pelo cliente
 								cliente.setGastoTotal(cliente.getGastoTotal() + valorItem);
