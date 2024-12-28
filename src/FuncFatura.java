@@ -57,13 +57,14 @@ public class FuncFatura {
 
 								// Atualizar o estoque do produto
 								produto.setStock(produto.getStock() - qtd);
+								FuncProdutos.atualizarArquivo(produtos);
+								FuncCliente.atualizarArquivoClientes(clientes);
 							}
 						}
 					}
 				}
 			}
-			FuncProdutos.atualizarArquivo(produtos);
-			FuncCliente.atualizarArquivoClientes(clientes);
+
 			atualizarNumeroFatura(numFatura);
 			atualizarArquivoClientes(faturas);
 
