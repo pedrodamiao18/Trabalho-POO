@@ -207,16 +207,33 @@ public class FuncProdutos {
         ArrayList<Produto> produtos = new ArrayList<>();
         // Ler ficheiro
         try {
-            ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/produtos.dat"));
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream("src/produtos.dat"));
             produtos = (ArrayList<Produto>) is.readObject();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        catch ( ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
         return produtos;
     }
 
+    public static void imprimeFaturasCliente(ArrayList<Fatura> faturas) {
+        ArrayList<Fatura> faturasCliente = new ArrayList<>();
+        System.out.println("Introduza o NIF do Cliente: ");
+        int nif = Ler.umInt();
+        for (int i = 0; i < faturas.size(); i++) {
+            Fatura fatura = faturas.get(i);
+            if (fatura.getCliente().getNif() == nif) {
+                faturasCliente.add(fatura);
+            }
+        }
+
+        if (!faturasCliente.isEmpty()) {
+            System.out.println("Faturas do cliente: " + nif);
+            FuncFatura.imprimirTodasFaturas(faturasCliente);
+        } else {
+            System.out.println("Não foram encontradas faturas para o cliente: " + nif);
+        }
+
+    }
 }

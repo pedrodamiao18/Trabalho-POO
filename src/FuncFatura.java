@@ -1,12 +1,5 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 
 public class FuncFatura {
 	    
@@ -22,50 +15,68 @@ public class FuncFatura {
 			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
 		}
 	}
+	public static void guardarFatura(Fatura fatura){
+		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("src/faturas.txt")))) {
+
+				writer.println("Número: " + fatura.getNumfatura());
+				writer.println("Data: " + fatura.getData());
+				writer.println("Cliente: " + fatura.getCliente().getNome());
+				writer.println("NIF: " + fatura.getCliente().getNif());
+				writer.println("Itens: " + fatura.getItens());
+				writer.println("Valor: " + fatura.getTotal());
+				writer.println("--------------------"); // Separador entre as faturas
+
+		} catch (IOException e) {
+			System.out.println("Erro ao guardar as faturas: " + e.getMessage());
+		}
+	}
 
 
 		public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
-	        int numFatura = obterNumeroFatura();
-	        Fatura f = new Fatura(c, numFatura); // Cria uma nova instância de Venda
+				int numFatura = obterNumeroFatura();
+				Fatura f = new Fatura(c, numFatura, lista); // Cria uma nova instância de Venda
 
-	        faturas.add(f);
-
-
-			ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
-
-			for (int x = 0; x < lista.size(); x++) {
-				// Iterar sobre os clientes para encontrar o cliente correspondente
-				for (Cliente cliente : clientes) {
-					if (c.getNif() == cliente.getNif()) {
-
-						// Iterar sobre os produtos para encontrar o produto correspondente
-						for (Produto produto : produtos) {
-							if (lista.get(x).getCod() == produto.getCod()) {
-								// Obter a quantidade e calcular o valor do item
-								int qtd = lista.get(x).getQtd(); // Corrigido: usa o índice x
-								double preco = produto.getPreco();
-								double valorItem = qtd * preco;
-
-								produto.setQuantidadeVendida(produto.getQuantidadeVendida() + qtd);
-								produto.setValorFaturado(produto.getValorFaturado() + valorItem);
-								f.setTotal(f.getTotal() + valorItem);
+				faturas.add(f);
 
 
-								// Atualizar o total gasto pelo cliente
-								cliente.setGastoTotal(cliente.getGastoTotal() + valorItem);
-								cliente.setNumeroDeCompras(cliente.getNumeroDeCompras() + 1);
+				ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
+				ArrayList<String> itens = new ArrayList<>();
 
-								// Atualizar o estoque do produto
-								produto.setStock(produto.getStock() - qtd);
+				for (int x = 0; x < lista.size(); x++) {
+					// Iterar sobre os clientes para encontrar o cliente correspondente
+					for (Cliente cliente : clientes) {
+						if (c.getNif() == cliente.getNif()) {
+
+							// Iterar sobre os produtos para encontrar o produto correspondente
+							for (Produto produto : produtos) {
+								if (lista.get(x).getCod() == produto.getCod()) {
+									// Obter a quantidade e calcular o valor do item
+									int qtd = lista.get(x).getQtd(); // Corrigido: usa o índice x
+									double preco = produto.getPreco();
+									double valorItem = qtd * preco;
+
+									produto.setQuantidadeVendida(produto.getQuantidadeVendida() + qtd);
+									produto.setValorFaturado(produto.getValorFaturado() + valorItem);
+									f.setTotal(f.getTotal() + valorItem);
+
+
+									// Atualizar o total gasto pelo cliente
+									cliente.setGastoTotal(cliente.getGastoTotal() + valorItem);
+									cliente.setNumeroDeCompras(cliente.getNumeroDeCompras() + 1);
+
+									// Atualizar o estoque do produto
+									produto.setStock(produto.getStock() - qtd);
+								}
 							}
 						}
 					}
 				}
-			}
+
 			FuncProdutos.atualizarArquivo(produtos);
 			FuncCliente.atualizarArquivoClientes(clientes);
 			atualizarNumeroFatura(numFatura);
 			atualizarArquivoClientes(faturas);
+			guardarFatura(f);
 
 
 	    }

@@ -1,12 +1,14 @@
 
-public class ProdQtd {
+public class ProdQtd{
 
 	private int qtd;
 	private int cod;
+	private double preco;
 	
-	public ProdQtd(int cod, int qtd) {
+	public ProdQtd(int cod, int qtd, double preco) {
 		this.cod = cod;
 		this.qtd = qtd;
+		this.preco = preco;
 	}
 	
 	public int getQtd() {
@@ -21,5 +23,7 @@ public class ProdQtd {
 	public void setCod(int cod) {
 		this.cod = cod;
 	}
+	public double getPreco(){return preco;}
+	public void setPreco(double preco){this.preco = preco;}
 	
 }

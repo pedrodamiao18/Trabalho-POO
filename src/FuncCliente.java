@@ -119,7 +119,7 @@ public class FuncCliente {
 	}
 
 	// Método para criar uma lista de compras
-	public static void criarLista(ArrayList<ProdQtd> lista) {
+	public static void criarLista(ArrayList<ProdQtd> lista, ArrayList<Produto> produtos) {
 		try {
 			System.out.println("1 - Adicionar produto");
 			System.out.println("0 - Sair");
@@ -134,8 +134,14 @@ public class FuncCliente {
 				if (qtd <= 0) {
 					throw new DadosInvalidosException("Quantidade deve ser maior que zero.");
 				}
+				double preco = 0;
+				for(int i = 0; i<produtos.size(); i++) {
+					if(cod == produtos.get(i).getCod()) {
+						preco = produtos.get(i).getPreco();
+					}
+				}
 
-				ProdQtd p = new ProdQtd(cod, qtd);
+				ProdQtd p = new ProdQtd(cod, qtd, preco);
 				lista.add(p);
 				System.out.println("Produto adicionado à lista.");
 			} else if (escolha == 0) {

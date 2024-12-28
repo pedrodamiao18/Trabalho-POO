@@ -56,7 +56,7 @@ public class GerirCliente {
 					System.out.println(produtos);
 					break;
 				case 2: // Criar lista
-					FuncCliente.criarLista(lista);
+					FuncCliente.criarLista(lista, produtos);
 					break;
 				case 3: // Verificar total gasto
 					FuncCliente.verificarTotalGasto(clientes);

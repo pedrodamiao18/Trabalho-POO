@@ -11,7 +11,8 @@ public class GerirProdutos {
         System.out.println("4 - Alterar preço de um produto");
         System.out.println("5 - Listar produtos por categoria");
         System.out.println("6 – Adicionar stock");
-        System.out.println("7 - Sair");
+        System.out.println("7 - Procurar fatura");
+        System.out.println("8 - Sair");
         System.out.println("Qual a sua opção:");
         opcao = Ler.umInt();
         return opcao;
@@ -22,6 +23,7 @@ public class GerirProdutos {
         int escolha;
         // Lista que vai conter todos os livros;
         ArrayList<Produto> produtos = new ArrayList<>();
+        ArrayList<Fatura> faturas = new ArrayList<>();
         // Ler ficheiro
         try {
             ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/produtos.dat"));
@@ -31,6 +33,17 @@ public class GerirProdutos {
             System.out.println(e.getMessage());
         }
         catch ( ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try{
+            ObjectInputStream fr = new ObjectInputStream(new FileInputStream("src/faturas.dat"));
+            faturas = (ArrayList<Fatura>) fr.readObject();
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        catch ( ClassNotFoundException e){
             System.out.println(e.getMessage());
         }
 
@@ -55,7 +68,9 @@ public class GerirProdutos {
                 case 6:
                     FuncProdutos.adicionarStock(produtos);
                     break;
+                case 7:
+                    FuncProdutos.imprimeFaturasCliente(faturas);
             }
-        } while(escolha != 7);
+        } while(escolha != 8);
     }
 }
