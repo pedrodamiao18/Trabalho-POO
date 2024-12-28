@@ -59,7 +59,7 @@ public class GerirCliente {
 					FuncCliente.criarLista(lista);
 					break;
 				case 3: // Verificar total gasto
-					FuncCliente.verificarTotalGasto(clientes);
+					clienteAtual.getGastoTotal();
 					break;
 				case 4: // Alterar dados
 					FuncCliente.alterarDados(clientes);

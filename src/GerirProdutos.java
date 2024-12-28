@@ -57,7 +57,7 @@ public class GerirProdutos {
                     FuncProdutos.adicionarStock(produtos);
                     break;
                 case 7:
-                    Estatisticas.main();
+                    Estatisticas.main(args);
                     break;
             }
         } while(escolha != 8);
