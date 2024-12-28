@@ -70,7 +70,7 @@ public class GerirProdutos {
                     FuncProdutos.adicionarStock(produtos);
                     break;
                 case 7:
-                    Estatisticas.main();
+                    Estatisticas.main(args);
                     break;
                 case 8:
                     FuncProdutos.imprimeFaturasCliente(faturas)    

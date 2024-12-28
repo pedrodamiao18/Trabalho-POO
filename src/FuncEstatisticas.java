@@ -28,7 +28,7 @@ public class FuncEstatisticas {
 
     // Produto mais caro
     public static void produtoMaisCaro(ArrayList<Produto> produtos) {
-        if (produtos.isEmpty()) {
+        if (produtos == null) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
@@ -46,7 +46,7 @@ public class FuncEstatisticas {
 
     // Produto mais barato
     public static void produtoMaisBarato(ArrayList<Produto> produtos) {
-        if (produtos.isEmpty()) {
+        if (produtos == null) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
