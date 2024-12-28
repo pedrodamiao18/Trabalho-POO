@@ -17,9 +17,6 @@ public class Fatura  implements Serializable{
 		this.total = 0;
 	}
 
-	public LocalDate getData() {
-		return data;
-	}
 
 	public int getNumfatura() {
 		return numfatura;
