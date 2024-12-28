@@ -64,16 +64,15 @@ public class FuncFatura {
 									cliente.setGastoTotal(cliente.getGastoTotal() + valorItem);
 									cliente.setNumeroDeCompras(cliente.getNumeroDeCompras() + 1);
 
-									// Atualizar o estoque do produto
-									produto.setStock(produto.getStock() - qtd);
-								}
+								// Atualizar o estoque do produto
+								produto.setStock(produto.getStock() - qtd);
+								FuncProdutos.atualizarArquivo(produtos);
+								FuncCliente.atualizarArquivoClientes(clientes);
 							}
 						}
 					}
 				}
-
-			FuncProdutos.atualizarArquivo(produtos);
-			FuncCliente.atualizarArquivoClientes(clientes);
+			}
 			atualizarNumeroFatura(numFatura);
 			atualizarArquivoClientes(faturas);
 			guardarFatura(f);
