@@ -41,6 +41,9 @@ public class GerirCliente {
 
 			case 2:
 				clienteAtual = FuncCliente.clienteExistente(clientes);
+				if (clienteAtual == null) {
+					System.out.println("NIF não encontrado. Por favor, tente novamente");
+				}
 				break;
 
 			default:

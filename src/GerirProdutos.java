@@ -73,7 +73,7 @@ public class GerirProdutos {
                     Estatisticas.main(args);
                     break;
                 case 8:
-                    FuncProdutos.imprimeFaturasCliente(faturas)    
+                    FuncProdutos.imprimeFaturasCliente(faturas);
             }
         } while(escolha != 9);
     }
