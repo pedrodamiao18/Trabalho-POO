@@ -19,14 +19,13 @@ public class FuncFatura {
 	}
 
 	public static void gravarEmArquivo(ArrayList<ProdQtd> lista, String nomeArquivo) {
-		try {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i<lista.size(); i++) {
-				sb.append(lista.get(i).getCod()).append("; ")
-						.append(lista.get(i).getPreco()).append("€").append("; ")
-						.append(lista.get(i).getQtd()).append(" Unt").append("\n");
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))) {
+			for (ProdQtd item : lista) {
+				writer.write(item.getCod() + "; " +
+						item.getPreco() + "€; " +
+						item.getQtd() + " Unt");
+				writer.newLine();
 			}
-			Files.write(Paths.get(nomeArquivo), sb.toString().getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -34,15 +33,13 @@ public class FuncFatura {
 
 	public static void guardarFatura(Fatura fatura) {
 		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("src/faturas.txt", true)))) {
-
 			writer.println("Número: " + fatura.getNumfatura());
 			writer.println("Data: " + fatura.getData());
 			writer.println("Cliente: " + fatura.getCliente().getNome());
 			writer.println("NIF: " + fatura.getCliente().getNif());
 			gravarEmArquivo(fatura.getItens(), "src/faturas.txt");
 			writer.println("Valor: " + fatura.getTotal());
-			writer.println("--------------------"); // Separador entre as faturas
-
+			writer.println("--------------------");
 		} catch (IOException e) {
 			System.out.println("Erro ao guardar as faturas: " + e.getMessage());
 		}
