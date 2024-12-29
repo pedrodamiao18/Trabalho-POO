@@ -1,8 +1,0 @@
-Número: 6
-Data: 2024-12-29
-Cliente: Pedro
-NIF: 123
-ProdQtd@2a33fae0
-
-Valor: 2.5
---------------------

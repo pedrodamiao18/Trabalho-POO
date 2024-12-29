@@ -1,11 +1,13 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class FuncFatura {
 	    
 	private static String nFatura = "num_fatura.txt";
 
-	public static void atualizarArquivoClientes(ArrayList<Fatura> faturas) {
+	public static void atualizarArquivoFaturas(ArrayList<Fatura> faturas) {
 		try {
 			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/faturas.dat"));
 			os.writeObject(faturas);
@@ -15,6 +17,21 @@ public class FuncFatura {
 			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
 		}
 	}
+
+	public static void gravarEmArquivo(ArrayList<ProdQtd> lista, String nomeArquivo) {
+		try {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i<lista.size(); i++) {
+				sb.append(lista.get(i).getCod()).append("; ")
+						.append(lista.get(i).getPreco()).append("€").append("; ")
+						.append(lista.get(i).getQtd()).append(" Unt").append("\n");
+			}
+			Files.write(Paths.get(nomeArquivo), sb.toString().getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void guardarFatura(Fatura fatura) {
 		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("src/faturas.txt", true)))) {
 
@@ -22,9 +39,9 @@ public class FuncFatura {
 			writer.println("Data: " + fatura.getData());
 			writer.println("Cliente: " + fatura.getCliente().getNome());
 			writer.println("NIF: " + fatura.getCliente().getNif());
-			for (int i = 0; i < fatura.getItens().size(); i++) {
-				writer.println(fatura.getItens().get(i).toString() + "\n");
-			}
+
+			gravarEmArquivo(fatura.getItens()+ "\n", "src/faturas.txt");
+
 			writer.println("Valor: " + fatura.getTotal());
 			writer.println("--------------------"); // Separador entre as faturas
 
@@ -38,9 +55,7 @@ public class FuncFatura {
 	public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
 				int numFatura = obterNumeroFatura();
 				Fatura f = new Fatura(c, numFatura, lista); // Cria uma nova instância de Venda
-
 				faturas.add(f);
-
 
 				ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
 				ArrayList<String> itens = new ArrayList<>();
@@ -71,16 +86,15 @@ public class FuncFatura {
 								produto.setStock(produto.getStock() - qtd);
 								FuncProdutos.atualizarArquivo(produtos);
 								FuncCliente.atualizarArquivoClientes(clientes);
+								atualizarArquivoFaturas(faturas);
+
 							}
 						}
 					}
 				}
 			}
-			atualizarNumeroFatura(numFatura);
-			atualizarArquivoClientes(faturas);
-			guardarFatura(f);
-
-
+				atualizarNumeroFatura(numFatura);
+				guardarFatura(f);
 	    }
 	    
 	    private static int obterNumeroFatura() {
@@ -122,7 +136,7 @@ public class FuncFatura {
 	    	ArrayList<Fatura> faturas = FuncFatura.lerFaturasdoArquivo();
 			for(int i = 0; i < faturas.size(); i++) {
 				if(faturas.get(i).getCliente().getNif()==nif) {
-					totalgasto += faturas.get(i).getTotal(); 
+					totalgasto += faturas.get(i).getTotal();
 				}
 			}
 			return totalgasto;
