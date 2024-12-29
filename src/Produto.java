@@ -1,12 +1,12 @@
-import java.io.Serializable;
+import java.io.*;
 
 public class Produto implements Serializable {
     private int cod;
-    private static int ultimo = 0;
+    private static int ultimo;
     private String nome;
     private int stock;
     private double preco;
-    private String categoria; // mercearia, congelados, lacteos, talho, peixaria, frutaria, legumes, padaria, charcutaria, bebidas
+    private String categoria;
     private int quantidadeVendida;
     private double valorFaturado;
     private String unidadeMedida;
@@ -18,21 +18,42 @@ public class Produto implements Serializable {
     };
 
     public Produto(String nome, String categoria, double preco, int stock, String unidadeMedida, double quantidadeMedida) {
+        carregarUltimo();
         ultimo++;
-        cod = ultimo;
+        this.cod = ultimo;
         this.categoria = categoria;
         this.nome = nome;
         this.preco = preco;
         this.stock = stock;
-        quantidadeVendida = 0;
-        valorFaturado = 0.0;
+        this.quantidadeVendida = 0;
+        this.valorFaturado = 0.0;
         this.unidadeMedida = unidadeMedida;
         this.quantidadeMedida = quantidadeMedida;
+        salvarUltimo();
     }
+
+    private void carregarUltimo() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/ultimo.dat"))) {
+            ultimo = ois.readInt();
+        } catch (IOException e) {
+            ultimo = 0; // Se o arquivo não existir, inicializa com 0
+        }
+    }
+
+    private void salvarUltimo() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/ultimo.dat"))) {
+            oos.writeInt(ultimo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Getters e setters
 
     public int getCod() {
         return cod;
     }
+
     public String getNome() {
         return nome;
     }

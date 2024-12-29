@@ -19,12 +19,19 @@ public class FuncFatura {
 	}
 
 	public static void gravarEmArquivo(ArrayList<ProdQtd> lista, String nomeArquivo) {
+		ArrayList<Produto> produtos = FuncProdutos.lerProdutosDoArquivo();
+
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))) {
-			for (ProdQtd item : lista) {
-				writer.write(item.getCod() + "; " +
-						item.getPreco() + "€; " +
-						item.getQtd() + " Unt");
-				writer.newLine();
+			for (Produto produto : produtos) {
+				for (ProdQtd item : lista) {
+					if (produto.getCod() == item.getCod()) {
+						writer.write("Cod " + item.getCod() + "; " +
+								produto.getNome() + "; " +
+								item.getPreco() + "€; " +
+								"Quantide: " + item.getQtd() );
+						writer.newLine();
+					}
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -38,7 +45,7 @@ public class FuncFatura {
 			writer.println("Cliente: " + fatura.getCliente().getNome());
 			writer.println("NIF: " + fatura.getCliente().getNif());
 			gravarEmArquivo(fatura.getItens(), "src/faturas.txt");
-			writer.println("Valor: " + fatura.getTotal());
+			writer.println("Valor: " + fatura.getTotal() + "€");
 			writer.println("--------------------");
 		} catch (IOException e) {
 			System.out.println("Erro ao guardar as faturas: " + e.getMessage());
@@ -48,8 +55,8 @@ public class FuncFatura {
 
 
 	public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
-				int numFatura = obterNumeroFatura();
-				Fatura f = new Fatura(c, numFatura, lista); // Cria uma nova instância de Venda
+
+				Fatura f = new Fatura(c, lista); // Cria uma nova instância de Venda
 				faturas.add(f);
 
 				ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
@@ -88,28 +95,10 @@ public class FuncFatura {
 					}
 				}
 			}
-				atualizarNumeroFatura(numFatura);
 				guardarFatura(f);
 	    }
 	    
-	    private static int obterNumeroFatura() {
-			try (BufferedReader reader = new BufferedReader(new FileReader(nFatura))) {
-	            String line = reader.readLine();
-	            return line != null ? Integer.parseInt(line) : 0; // Retorna 0 se o arquivo estiver vazio
-	        } catch (IOException e) {
-	            return 0; // Retorna 0 se houver um erro ao ler o arquivo
-	        }
-	    }
-	    
-	    private static void atualizarNumeroFatura(int numFatura) {
-	        try (FileWriter fw = new FileWriter(nFatura)) {
-	            fw.write(String.valueOf(numFatura + 1)); // Incrementa o número da fatura
-	        } catch (IOException e) {
-	        	System.out.println(e.getMessage());
-	        }
-	    }
-	    
-	    public static ArrayList<Fatura> lerFaturasdoArquivo(){
+		public static ArrayList<Fatura> lerFaturasdoArquivo(){
 			ArrayList<Fatura> faturas = new ArrayList<>();
 			// Ler ficheiro
 			try {

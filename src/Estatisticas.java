@@ -15,7 +15,7 @@ public class Estatisticas {
         System.out.println("7 - Dia de maior faturação");
         System.out.println("8 - Receita/Balanço do mês");
         System.out.println("9 - Cliente que gastou mais na loja");
-        System.out.println("10 - Voltar ao menu principal");
+        System.out.println("10 - Sair");
         opcao = Ler.umInt();
         return opcao;
     }
