@@ -65,7 +65,7 @@ public class FuncEstatisticas {
 
     // Produto mais vendido
     public static void produtoMaisVendido(ArrayList<Produto> produtos) {
-        if (produtos.isEmpty()) {
+        if (produtos == null) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
@@ -82,7 +82,7 @@ public class FuncEstatisticas {
 
     // Produto menos vendido
     public static void produtoMenosVendido(ArrayList<Produto> produtos) {
-        if (produtos.isEmpty()) {
+        if (produtos == null) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
@@ -99,7 +99,7 @@ public class FuncEstatisticas {
 
     // Função para determinar o dia de maior faturação
     public static void diaMaiorFaturacao(ArrayList<Fatura> faturas) {
-        if (faturas.isEmpty()) {
+        if (faturas == null) {
             System.out.println("Não há faturas registradas.");
             return;
         }
