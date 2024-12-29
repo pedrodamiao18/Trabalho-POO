@@ -39,9 +39,7 @@ public class FuncFatura {
 			writer.println("Data: " + fatura.getData());
 			writer.println("Cliente: " + fatura.getCliente().getNome());
 			writer.println("NIF: " + fatura.getCliente().getNif());
-
-			gravarEmArquivo(fatura.getItens()+ "\n", "src/faturas.txt");
-
+			gravarEmArquivo(fatura.getItens(), "src/faturas.txt");
 			writer.println("Valor: " + fatura.getTotal());
 			writer.println("--------------------"); // Separador entre as faturas
 
