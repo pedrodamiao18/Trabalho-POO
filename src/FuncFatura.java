@@ -15,16 +15,18 @@ public class FuncFatura {
 			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
 		}
 	}
-	public static void guardarFatura(Fatura fatura){
-		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("src/faturas.txt")))) {
+	public static void guardarFatura(Fatura fatura) {
+		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("src/faturas.txt", true)))) {
 
-				writer.println("Número: " + fatura.getNumfatura());
-				writer.println("Data: " + fatura.getData());
-				writer.println("Cliente: " + fatura.getCliente().getNome());
-				writer.println("NIF: " + fatura.getCliente().getNif());
-				writer.println("Itens: " + fatura.getItens());
-				writer.println("Valor: " + fatura.getTotal());
-				writer.println("--------------------"); // Separador entre as faturas
+			writer.println("Número: " + fatura.getNumfatura());
+			writer.println("Data: " + fatura.getData());
+			writer.println("Cliente: " + fatura.getCliente().getNome());
+			writer.println("NIF: " + fatura.getCliente().getNif());
+			for (int i = 0; i < fatura.getItens().size(); i++) {
+				writer.println(fatura.getItens().get(i).toString() + "\n");
+			}
+			writer.println("Valor: " + fatura.getTotal());
+			writer.println("--------------------"); // Separador entre as faturas
 
 		} catch (IOException e) {
 			System.out.println("Erro ao guardar as faturas: " + e.getMessage());
@@ -32,7 +34,8 @@ public class FuncFatura {
 	}
 
 
-		public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
+
+	public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
 				int numFatura = obterNumeroFatura();
 				Fatura f = new Fatura(c, numFatura, lista); // Cria uma nova instância de Venda
 
