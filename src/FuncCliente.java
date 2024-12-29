@@ -22,6 +22,11 @@ public class FuncCliente {
 			if (nif <= 0) {
 				throw new DadosInvalidosException("O NIF deve ser maior que zero.");
 			}
+			for (Cliente c : clientes) {
+				if (c.getNif() == nif) {
+					throw new ClienteJaExistenteException("Cliente já existente!");
+				}
+			}
 
 			System.out.print("Introduza o seu nome: ");
 			String nome = Ler.umaString();
@@ -145,7 +150,7 @@ public class FuncCliente {
 				lista.add(p);
 				System.out.println("Produto adicionado à lista.");
 			} else if (escolha == 0) {
-				if (lista.isEmpty()) {
+				if (lista == null) {
 					throw new ListaVaziaException("A lista está vazia! Não há produtos para processar.");
 				}
 				System.out.println("Lista de compras criada com sucesso.");

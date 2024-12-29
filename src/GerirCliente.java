@@ -26,30 +26,29 @@ public class GerirCliente {
 		ArrayList<Fatura> faturas = FuncFatura.lerFaturasdoArquivo();
 		ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
 
-		System.out.println("Bem-vindo ao sistema de gestão de clientes!");
-		System.out.println("1 - Sou um novo cliente");
-		System.out.println("2 - Já sou um cliente existente");
-		System.out.print("Qual a sua opção: ");
-		escolhaInicial = Ler.umInt();
+		Cliente clienteAtual = null;
+		do {
+			System.out.println("Bem-vindo ao sistema de gestão de clientes!");
+			System.out.println("1 - Sou um novo cliente");
+			System.out.println("2 - Já sou um cliente existente");
+			System.out.print("Qual a sua opção: ");
+			escolhaInicial = Ler.umInt();
 
-		Cliente clienteAtual = null; // Cliente atualmente logado
 
-		switch (escolhaInicial) {
-			case 1:
-				clienteAtual = FuncCliente.novoCliente(clientes);
-				break;
+			switch (escolhaInicial) {
+				case 1:
+					clienteAtual = FuncCliente.novoCliente(clientes);
+					break;
 
-			case 2:
-				clienteAtual = FuncCliente.clienteExistente(clientes);
-				if (clienteAtual == null) {
-					System.out.println("NIF não encontrado. Por favor, tente novamente");
-				}
-				break;
+				case 2:
+					clienteAtual = FuncCliente.clienteExistente(clientes);
+					break;
 
-			default:
-				System.out.println("Opção inválida. Encerrando o programa.");
-				return;
-		}
+				default:
+					System.out.println("Opção inválida. Encerrando o programa.");
+					return;
+			}
+		} while (clienteAtual == null);
 
 		// Menu principal para clientes já registados
 		do {
@@ -62,7 +61,7 @@ public class GerirCliente {
 					FuncCliente.criarLista(lista, produtos);
 					break;
 				case 3: // Verificar total gasto
-					clienteAtual.getGastoTotal();
+					System.out.println("Total gasto: " + clienteAtual.getGastoTotal());
 					break;
 				case 4: // Alterar dados
 					FuncCliente.alterarDados(clientes);

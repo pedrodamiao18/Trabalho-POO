@@ -1,0 +1,22 @@
+1; 1.25€; 10 Unt
+Número: 0
+Data: 2024-12-29
+Cliente: Pedro
+NIF: 123
+Valor: 12.5
+--------------------
+1; 1.25€; 10 Unt
+Número: 1
+Data: 2024-12-29
+Cliente: Pedro
+NIF: 123
+Valor: 12.5
+--------------------
+1; 2.0€; 5 Unt
+2; 0.0€; 5 Unt
+Número: 2
+Data: 2024-12-29
+Cliente: Pedro
+NIF: 123
+Valor: 16.25
+--------------------

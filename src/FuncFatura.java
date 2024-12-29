@@ -1,11 +1,13 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class FuncFatura {
 	    
 	private static String nFatura = "num_fatura.txt";
 
-	public static void atualizarArquivoClientes(ArrayList<Fatura> faturas) {
+	public static void atualizarArquivoFaturas(ArrayList<Fatura> faturas) {
 		try {
 			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/faturas.dat"));
 			os.writeObject(faturas);
@@ -15,29 +17,40 @@ public class FuncFatura {
 			System.out.println("Erro ao atualizar o arquivo: " + e.getMessage());
 		}
 	}
-	public static void guardarFatura(Fatura fatura){
-		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("src/faturas.txt")))) {
 
-				writer.println("Número: " + fatura.getNumfatura());
-				writer.println("Data: " + fatura.getData());
-				writer.println("Cliente: " + fatura.getCliente().getNome());
-				writer.println("NIF: " + fatura.getCliente().getNif());
-				writer.println("Itens: " + fatura.getItens());
-				writer.println("Valor: " + fatura.getTotal());
-				writer.println("--------------------"); // Separador entre as faturas
+	public static void gravarEmArquivo(ArrayList<ProdQtd> lista, String nomeArquivo) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))) {
+			for (ProdQtd item : lista) {
+				writer.write(item.getCod() + "; " +
+						item.getPreco() + "€; " +
+						item.getQtd() + " Unt");
+				writer.newLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
+	public static void guardarFatura(Fatura fatura) {
+		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("src/faturas.txt", true)))) {
+			writer.println("Número: " + fatura.getNumfatura());
+			writer.println("Data: " + fatura.getData());
+			writer.println("Cliente: " + fatura.getCliente().getNome());
+			writer.println("NIF: " + fatura.getCliente().getNif());
+			gravarEmArquivo(fatura.getItens(), "src/faturas.txt");
+			writer.println("Valor: " + fatura.getTotal());
+			writer.println("--------------------");
 		} catch (IOException e) {
 			System.out.println("Erro ao guardar as faturas: " + e.getMessage());
 		}
 	}
 
 
-		public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
+
+	public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
 				int numFatura = obterNumeroFatura();
 				Fatura f = new Fatura(c, numFatura, lista); // Cria uma nova instância de Venda
-
 				faturas.add(f);
-
 
 				ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
 				ArrayList<String> itens = new ArrayList<>();
@@ -64,21 +77,19 @@ public class FuncFatura {
 									cliente.setGastoTotal(cliente.getGastoTotal() + valorItem);
 									cliente.setNumeroDeCompras(cliente.getNumeroDeCompras() + 1);
 
-									// Atualizar o estoque do produto
-									produto.setStock(produto.getStock() - qtd);
-								}
+								// Atualizar o estoque do produto
+								produto.setStock(produto.getStock() - qtd);
+								FuncProdutos.atualizarArquivo(produtos);
+								FuncCliente.atualizarArquivoClientes(clientes);
+								atualizarArquivoFaturas(faturas);
+
 							}
 						}
 					}
 				}
-
-			FuncProdutos.atualizarArquivo(produtos);
-			FuncCliente.atualizarArquivoClientes(clientes);
-			atualizarNumeroFatura(numFatura);
-			atualizarArquivoClientes(faturas);
-			guardarFatura(f);
-
-
+			}
+				atualizarNumeroFatura(numFatura);
+				guardarFatura(f);
 	    }
 	    
 	    private static int obterNumeroFatura() {
@@ -120,7 +131,7 @@ public class FuncFatura {
 	    	ArrayList<Fatura> faturas = FuncFatura.lerFaturasdoArquivo();
 			for(int i = 0; i < faturas.size(); i++) {
 				if(faturas.get(i).getCliente().getNif()==nif) {
-					totalgasto += faturas.get(i).getTotal(); 
+					totalgasto += faturas.get(i).getTotal();
 				}
 			}
 			return totalgasto;

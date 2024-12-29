@@ -17,6 +17,7 @@ public class Fatura  implements Serializable{
 		this.total = 0;
 	}
 
+
 	public int getNumfatura() {
 		return numfatura;
 	}

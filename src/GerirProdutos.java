@@ -23,31 +23,9 @@ public class GerirProdutos {
     public static void main (String[] args){
         int escolha;
         // Lista que vai conter todos os livros;
-        ArrayList<Produto> produtos = new ArrayList<>();
-        ArrayList<Fatura> faturas = new ArrayList<>();
+        ArrayList<Produto> produtos = FuncProdutos.lerProdutosDoArquivo();
+        ArrayList<Fatura> faturas = FuncFatura.lerFaturasdoArquivo();
         // Ler ficheiro
-        try {
-            ObjectInputStream is = new ObjectInputStream( new FileInputStream("src/produtos.dat"));
-            produtos = (ArrayList<Produto>) is.readObject();
-        }
-        catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-        catch ( ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try{
-            ObjectInputStream fr = new ObjectInputStream(new FileInputStream("src/faturas.dat"));
-            faturas = (ArrayList<Fatura>) fr.readObject();
-        }
-        catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-        catch ( ClassNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-
         do{
             escolha = menu();
             switch (escolha){
