@@ -65,6 +65,6 @@ public class Estatisticas {
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while(escolha != 11);
+        } while(escolha != 10);
     }
 }
