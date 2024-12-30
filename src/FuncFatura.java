@@ -44,6 +44,7 @@ public class FuncFatura {
 			writer.println("Data: " + fatura.getData());
 			writer.println("Cliente: " + fatura.getCliente().getNome());
 			writer.println("NIF: " + fatura.getCliente().getNif());
+			writer.println("Telefone: " + fatura.getCliente().getTelemovel());
 			gravarEmArquivo(fatura.getItens(), "src/faturas.txt");
 			writer.println("Valor: " + fatura.getTotal() + "€");
 			writer.println("--------------------");

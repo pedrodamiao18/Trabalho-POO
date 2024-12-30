@@ -73,15 +73,6 @@ public class FuncProdutos {
     // Método para apagar produto
     public static void apagarProduto(ArrayList<Produto> produtos) {
         try {
-            System.out.println("Digite a categoria do produto para remover:");
-            for (String categoria : Produto.categoriasPossiveis) {
-                System.out.print(categoria + " ");
-            }
-            System.out.println();
-
-            String categoriaEscolhida = Ler.umaString();
-            verificarCategoria(categoriaEscolhida);
-
             System.out.println("Digite o código do produto a remover:");
             int codigo = Ler.umInt();
 
@@ -98,15 +89,6 @@ public class FuncProdutos {
     // Método para alterar preço
     public static void alterarPrecoProduto(ArrayList<Produto> produtos) {
         try {
-            System.out.println("Digite a categoria do produto:");
-            for (String categoria : Produto.categoriasPossiveis) {
-                System.out.print(categoria + " ");
-            }
-            System.out.println();
-
-            String categoriaEscolhida = Ler.umaString();
-            verificarCategoria(categoriaEscolhida);
-
             System.out.println("Digite o código do produto para alterar o preço:");
             int codigo = Ler.umInt();
 
@@ -160,15 +142,6 @@ public class FuncProdutos {
     // Método para adicionar stock
     public static void adicionarStock(ArrayList<Produto> produtos) {
         try {
-            System.out.println("Digite a categoria do produto:");
-            for (String categoria : Produto.categoriasPossiveis) {
-                System.out.print(categoria + " ");
-            }
-            System.out.println();
-
-            String categoriaEscolhida = Ler.umaString();
-            verificarCategoria(categoriaEscolhida);
-
             System.out.println("Digite o código do produto para adicionar stock:");
             int codigo = Ler.umInt();
 

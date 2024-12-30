@@ -42,3 +42,11 @@ Cliente: António S
 NIF: 123456789
 Valor: 6.25€
 --------------------
+Cod 1; ovo; 1.5€; Quantide: 2
+Número: 7
+Data: 2024-12-30
+Cliente: Pedro
+NIF: 987654321
+Telefone: 915497769
+Valor: 3.0€
+--------------------
