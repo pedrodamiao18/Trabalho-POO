@@ -18,6 +18,11 @@ public class FuncEstatisticas {
 
     // Valor total em stock
     public static void valorTotal(ArrayList<Produto> produtos) {
+        if (produtos == null || produtos.isEmpty()) {
+            System.out.println("A lista de produtos está vazia.");
+            return;
+        }
+
         double valorTotal = 0;
 
         for (Produto produto : produtos) {
@@ -26,9 +31,9 @@ public class FuncEstatisticas {
         System.out.println("Valor total em stock: " + valorTotal + "€");
     }
 
-    // Produto mais caro
+
     public static void produtoMaisCaro(ArrayList<Produto> produtos) {
-        if (produtos == null) {
+        if (produtos == null || produtos.isEmpty()) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
@@ -43,10 +48,8 @@ public class FuncEstatisticas {
         System.out.println("Produto mais caro: " + maisCaro);
     }
 
-
-    // Produto mais barato
     public static void produtoMaisBarato(ArrayList<Produto> produtos) {
-        if (produtos == null) {
+        if (produtos == null || produtos.isEmpty()) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
@@ -62,13 +65,13 @@ public class FuncEstatisticas {
         System.out.println("Produto mais barato: " + maisBarato);
     }
 
-
     // Produto mais vendido
     public static void produtoMaisVendido(ArrayList<Produto> produtos) {
-        if (produtos == null) {
+        if (produtos == null || produtos.isEmpty()) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
+
         Produto maisVendido = produtos.get(0);
         for (Produto produto : produtos) {
             if (produto.getQuantidadeVendida() > maisVendido.getQuantidadeVendida()) {
@@ -79,13 +82,13 @@ public class FuncEstatisticas {
         System.out.println("Produto mais vendido: " + maisVendido);
     }
 
-
     // Produto menos vendido
     public static void produtoMenosVendido(ArrayList<Produto> produtos) {
-        if (produtos == null) {
+        if (produtos == null || produtos.isEmpty()) {
             System.out.println("A lista de produtos está vazia.");
             return;
         }
+
         Produto menosVendido = produtos.get(0);
         for (Produto produto : produtos) {
             if (produto.getQuantidadeVendida() < menosVendido.getQuantidadeVendida()) {
@@ -93,14 +96,13 @@ public class FuncEstatisticas {
             }
         }
 
-        System.out.println("Produto menos vendido: " + menosVendido );
+        System.out.println("Produto menos vendido: " + menosVendido);
     }
-
 
     // Função para determinar o dia de maior faturação
     public static void diaMaiorFaturacao(ArrayList<Fatura> faturas) {
         if (faturas == null || faturas.isEmpty()) {
-            System.out.println("Não há faturas registradas.");
+            System.out.println("Não há faturas registadas.");
             return;
         }
 
@@ -173,7 +175,7 @@ public class FuncEstatisticas {
             System.out.println("O cliente com maior gasto é: " + clienteMaiorGasto.getNome());
             System.out.println("Total gasto: " + maiorGasto);
         } else {
-            System.out.println("Não há clientes registrados.");
+            System.out.println("Não há clientes registados.");
         }
     }
 }
