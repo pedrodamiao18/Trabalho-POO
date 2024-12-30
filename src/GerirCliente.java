@@ -28,7 +28,7 @@ public class GerirCliente {
 
 		Cliente clienteAtual = null;
 		do {
-			System.out.println("Bem-vindo ao sistema de gestão de clientes!");
+			System.out.println("\nBem-vindo ao sistema de gestão de clientes!");
 			System.out.println("1 - Sou um novo cliente");
 			System.out.println("2 - Já sou um cliente existente");
 			System.out.print("Qual a sua opção: ");

@@ -5,7 +5,7 @@ public class Estatisticas {
 
     public static int menu() {
         int opcao;
-        System.out.println("Menu de Estatísticas:");
+        System.out.println("\nMenu de Estatísticas:");
         System.out.println("1 - Quantidade total de produtos");
         System.out.println("2 - Valor total em stock");
         System.out.println("3 - Produto mais caro");

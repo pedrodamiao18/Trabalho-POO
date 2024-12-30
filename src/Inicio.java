@@ -19,6 +19,8 @@ public class Inicio {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("Bem vindo à nossa loja!");
+		System.out.println("Selecione o seu peril:");
 		int escolha;
 			escolha = menu();
 			switch(escolha) {
@@ -26,6 +28,7 @@ public class Inicio {
 				GerirCliente.main(args);
 				break;
 			case 2:
+				System.out.println("\nÁrea do Funcionário");
 				int escolhaFuncionario;
 				escolhaFuncionario = menuFuncionario();
 				switch(escolhaFuncionario) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GerirProdutos {
     public static int menu(){ // função na classe do main
         int opcao;
+        System.out.println("\nMenu para Gestão de Produtos");
         System.out.println("1 - Novo produto");
         System.out.println("2 - Listar produtos");
         System.out.println("3 - Apagar produto");

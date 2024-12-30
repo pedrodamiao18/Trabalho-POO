@@ -17,7 +17,7 @@ public class FuncCliente {
 
 	public static Cliente novoCliente(ArrayList<Cliente> clientes) {
 		try {
-			System.out.print("Introduza o seu NIF: ");
+			System.out.print("\nIntroduza o seu NIF: ");
 			int nif = Ler.umInt();
 			if (nif <= 0) {
 				throw new DadosInvalidosException("O NIF deve ser maior que zero.");
@@ -55,7 +55,7 @@ public class FuncCliente {
 
 	public static Cliente clienteExistente(ArrayList<Cliente> clientes) {
 		try {
-			System.out.print("Introduza o seu NIF para continuar: ");
+			System.out.print("\nIntroduza o seu NIF para continuar: ");
 			int nifExistente = Ler.umInt();
 			if (nifExistente <= 0) {
 				throw new DadosInvalidosException("O NIF deve ser maior que zero.");
