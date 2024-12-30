@@ -11,9 +11,8 @@ public class GerirProdutos {
         System.out.println("4 - Alterar preço de um produto");
         System.out.println("5 - Listar produtos por categoria");
         System.out.println("6 – Adicionar stock");
-        System.out.println("7 - Menu de Estatísticas");
-        System.out.println("8 - Procurar fatura");
-        System.out.println("9 - Sair");
+        System.out.println("7 - Procurar fatura");
+        System.out.println("8 - Sair");
         System.out.println("Qual a sua opção:");
         opcao = Ler.umInt();
         return opcao;
@@ -48,11 +47,14 @@ public class GerirProdutos {
                     FuncProdutos.adicionarStock(produtos);
                     break;
                 case 7:
-                    Estatisticas.main(args);
-                    break;
-                case 8:
                     FuncProdutos.imprimeFaturasCliente(faturas);
+                    break;
+                case 8: // Sair
+                    System.out.println("Até breve!");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
             }
-        } while(escolha != 9);
+        } while(escolha != 8);
     }
 }

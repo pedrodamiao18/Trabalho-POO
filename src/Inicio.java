@@ -10,6 +10,14 @@ public class Inicio {
 		return opcao;
 	}
 
+	public static int menuFuncionario(){
+		int opcao;
+		System.out.println("1 - Gerir Produtos");
+		System.out.println("2 - Estatisticas");
+		opcao = Ler.umInt();
+		return opcao;
+	}
+
 	public static void main(String[] args) {
 		int escolha;
 			escolha = menu();
@@ -18,7 +26,18 @@ public class Inicio {
 				GerirCliente.main(args);
 				break;
 			case 2:
-				GerirProdutos.main(args);
+				int escolhaFuncionario;
+				escolhaFuncionario = menuFuncionario();
+				switch(escolhaFuncionario) {
+				case 1:
+					GerirProdutos.main(args);
+					break;
+				case 2:
+					Estatisticas.main(args);
+					break;
+				default:
+					System.out.println("Opção inválida");
+				}
 				break;
 			default:
 				System.out.println("Opção inválida");

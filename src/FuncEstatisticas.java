@@ -99,7 +99,7 @@ public class FuncEstatisticas {
 
     // Função para determinar o dia de maior faturação
     public static void diaMaiorFaturacao(ArrayList<Fatura> faturas) {
-        if (faturas == null) {
+        if (faturas == null || faturas.isEmpty()) {
             System.out.println("Não há faturas registradas.");
             return;
         }
@@ -126,7 +126,11 @@ public class FuncEstatisticas {
         }
 
         // Exibir o resultado
-        System.out.println("O dia de maior faturação foi " + diaMaiorFaturacao + " com um total de " + maiorFaturacao);
+        if (diaMaiorFaturacao != null) {
+            System.out.println("O dia de maior faturação foi " + diaMaiorFaturacao + " com um total de " + maiorFaturacao);
+        } else {
+            System.out.println("Não foi possível determinar o dia de maior faturação.");
+        }
     }
 
 
