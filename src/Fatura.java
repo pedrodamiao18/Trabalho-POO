@@ -71,14 +71,21 @@ public class Fatura implements Serializable {
 		this.itens = itens;
 	}
 
+
 	@Override
 	public String toString() {
+		StringBuilder s = new StringBuilder();
+
+		for (ProdQtd item : itens) {
+			s.append("cod " + item.getCod()).append(" - ").append("quantidade" + item.getQtd()).append("; ");
+		}
+
 		return "Fatura{" +
 				"cliente=" + cliente +
 				", numfatura=" + numfatura +
 				", data=" + data +
-				", itens=" + itens +
-				", total=" + total +
+				", itens= " + s +
+				"total=" + total +
 				'}';
 	}
 }

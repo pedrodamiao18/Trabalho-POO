@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class ProdQtd{
+public class ProdQtd implements Serializable {
 
 	private int qtd;
 	private int cod;

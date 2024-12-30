@@ -2,17 +2,15 @@ Cod 1; ovo; 1.25€; Quantide: 1
 Cod 2; Bifes de brango; 4.0€; Quantide: 2
 Cod 3; salmão; 5.0€; Quantide: 3
 Número: 1
-Data: 2024-12-29
+Data: 2024-12-30
 Cliente: Pedro
 NIF: 987654321
-Valor: 24.25
+Valor: 24.25€
 --------------------
-Cod 1; ovo; 1.25€; Quantide: 4
-Cod 2; Bifes de brango; 4.0€; Quantide: 8
-Cod 3; salmão; 5.0€; Quantide: 7
+Cod 2; Bifes de brango; 4.0€; Quantide: 12
 Número: 2
-Data: 2024-12-29
+Data: 2024-12-30
 Cliente: Pedro
 NIF: 987654321
-Valor: 72.0€
+Valor: 48.0€
 --------------------
