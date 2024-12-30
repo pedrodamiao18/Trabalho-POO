@@ -1,3 +1,4 @@
+//Trabalho de POO - Loja de Produtos Alimentares - Grupo 26
 import myinputs.Ler;
 
 public class Inicio {
@@ -24,11 +25,12 @@ public class Inicio {
 	}
 
 	public static void main(String[] args) {
-		boolean continuar = true;
 
+		System.out.println("Bem vindo à nossa loja!");
+
+		boolean continuar = true;
 		while (continuar) {
-			System.out.println("\nBem vindo à nossa loja!");
-			System.out.println("Selecione o seu perfil:");
+			System.out.println("\nSelecione o seu perfil:");
 			int escolha = menu();
 
 			switch (escolha) {
