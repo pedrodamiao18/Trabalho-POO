@@ -50,3 +50,11 @@ NIF: 987654321
 Telefone: 915497769
 Valor: 3.0€
 --------------------
+Cod 2; Bifes de brango; 4.0€; Quantide: 4
+Número: 8
+Data: 2024-12-30
+Cliente: Ana
+NIF: 919191919
+Telefone: 939393939
+Valor: 16.0€
+--------------------
