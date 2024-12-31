@@ -55,40 +55,41 @@ public class FuncFatura {
 
 
 
-	public static void criarFatura(ArrayList<Fatura> faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente clienteAtual) {
-		Fatura f = new Fatura(clienteAtual, lista); // Cria uma nova instância de Fatura
+	public static void criarFatura(ArrayList<Fatura>faturas, ArrayList<ProdQtd> lista, ArrayList<Produto> produtos, Cliente c) {
+
+		Fatura f = new Fatura(c, lista); // Cria uma nova instância de Venda
 		faturas.add(f);
-
+		ArrayList<Cliente> clientes = FuncCliente.lerClienteDoArquivo();
 		ArrayList<String> itens = new ArrayList<>();
-
 		for (int x = 0; x < lista.size(); x++) {
-			for (Produto produto : produtos) {
-				if (lista.get(x).getCod() == produto.getCod()) {
-					// Obter a quantidade e calcular o valor do item
-					int qtd = lista.get(x).getQtd();
-					double preco = produto.getPreco();
-					double valorItem = qtd * preco;
+			// Iterar sobre os clientes para encontrar o cliente correspondente
+			for (Cliente cliente : clientes) {
+				if (c.getNif() == cliente.getNif()) {
+					// Iterar sobre os produtos para encontrar o produto correspondente
+					for (Produto produto : produtos) {
+						if (lista.get(x).getCod() == produto.getCod()) {
+							// Obter a quantidade e calcular o valor do item
+							int qtd = lista.get(x).getQtd(); // Corrigido: usa o índice x
+							double preco = produto.getPreco();
+							double valorItem = qtd * preco;
+							produto.setQuantidadeVendida(produto.getQuantidadeVendida() + qtd);
+							produto.setValorFaturado(produto.getValorFaturado() + valorItem);
+							f.setTotal(f.getTotal() + valorItem);
 
-					// Atualizar os dados do produto
-					produto.setQuantidadeVendida(produto.getQuantidadeVendida() + qtd);
-					produto.setValorFaturado(produto.getValorFaturado() + valorItem);
-					produto.setStock(produto.getStock() - qtd);
+							// Atualizar o total gasto pelo cliente
+							cliente.setGastoTotal(cliente.getGastoTotal() + valorItem);
+							cliente.setNumeroDeCompras(cliente.getNumeroDeCompras() + 1);
 
-					// Atualizar o total da fatura
-					f.setTotal(f.getTotal() + valorItem);
-
-					// Atualizar o total gasto e número de compras do cliente atual
-					clienteAtual.setGastoTotal(clienteAtual.getGastoTotal() + valorItem);
-					clienteAtual.setNumeroDeCompras(clienteAtual.getNumeroDeCompras() + 1);
+							// Atualizar o estoque do produto
+							produto.setStock(produto.getStock() - qtd);
+							FuncProdutos.atualizarArquivo(produtos);
+							FuncCliente.atualizarArquivoClientes(clientes);
+							atualizarArquivoFaturas(faturas);
+						}
+					}
 				}
 			}
 		}
-
-		// Atualizar arquivos
-		FuncProdutos.atualizarArquivo(produtos);
-		atualizarArquivoFaturas(faturas);
-		FuncCliente.atualizarArquivoClientes(FuncCliente.lerClienteDoArquivo());
-
 		guardarFatura(f);
 	}
 

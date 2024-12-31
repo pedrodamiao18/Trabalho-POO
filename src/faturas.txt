@@ -1,0 +1,8 @@
+Cod 1; Massa; 2.0€; Quantide: 20
+Número: 1
+Data: 2024-12-31
+Cliente: pedro
+NIF: 123
+Telefone: 999
+Valor: 40.0€
+--------------------
