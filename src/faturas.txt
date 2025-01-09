@@ -1,8 +1,10 @@
-Cod 1; Massa; 2.0€; Quantide: 20
+Cod 1; Arroz; 1.2€; Quantide: 10
+Cod 15; Leite condensado; 1.8€; Quantide: 8
+Cod 26; Morango; 4.0€; Quantide: 5
 Número: 1
-Data: 2024-12-31
-Cliente: pedro
-NIF: 123
-Telefone: 999
-Valor: 40.0€
+Data: 2025-01-09
+Cliente: Maria
+NIF: 3
+Telefone: 777777777
+Valor: 46.4€
 --------------------
